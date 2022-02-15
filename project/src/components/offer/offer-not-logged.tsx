@@ -1,5 +1,3 @@
-import React from 'react';
-
 export function OfferNotLogged() {
   return (
     <main className='page__main page__main--property'>

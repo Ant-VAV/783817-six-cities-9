@@ -1,5 +1,3 @@
-import React from 'react';
-
 export function MainEmpty() {
   return (
     <main className='page__main page__main--index page__main--index-empty'>
