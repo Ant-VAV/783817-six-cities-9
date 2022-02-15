@@ -5,7 +5,7 @@ interface PlaceCardProps {
 export function PlaceCard(props: PlaceCardProps) {
   const { isPremium = false } = props;
   return (
-    <>
+    <article className='cities__place-card place-card'>
       {isPremium && (
         <div className='place-card__mark'>
           <span>Premium</span>
@@ -43,6 +43,6 @@ export function PlaceCard(props: PlaceCardProps) {
         </h2>
         <p className='place-card__type'>Apartment</p>
       </div>
-    </>
+    </article>
   );
 }
