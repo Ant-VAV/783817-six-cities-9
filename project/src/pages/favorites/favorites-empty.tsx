@@ -1,5 +1,5 @@
-import { Header } from '../layout/header/header';
-import { Footer } from '../layout/footer/footer';
+import { Header } from '../../components/layout/header/header';
+import { Footer } from '../../components/layout/footer/footer';
 
 export function FavoritesEmpty() {
   return (
