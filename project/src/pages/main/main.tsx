@@ -1,7 +1,7 @@
-import { TabList } from '../tab-list/tab-list';
-import { Places } from '../places/places';
-import { PlacesEmpty } from '../places/places-empty';
-import { Header } from '../layout/header/header';
+import { TabList } from '../../components/tab-list/tab-list';
+import { Places } from '../../components/places/places';
+import { PlacesEmpty } from '../../components/places/places-empty';
+import { Header } from '../../components/layout/header/header';
 
 export interface MainProps {
   rentOffersTotal: number;

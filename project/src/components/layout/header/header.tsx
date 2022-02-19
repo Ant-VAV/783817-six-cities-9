@@ -1,3 +1,6 @@
+import { Link } from 'react-router-dom';
+import { Page } from '../../../const';
+
 interface HeaderProps {
   isLoggedIn?: boolean;
   isMainPage?: boolean;
@@ -11,11 +14,9 @@ export function Header(props: HeaderProps) {
       <div className='container'>
         <div className='header__wrapper'>
           <div className='header__left'>
-            <a className={`header__logo-link ${isMainPage && 'header__logo-link--active'}`}
-              href={isMainPage ? undefined : 'main.html'}
-            >
+            <Link to={Page.Main} className={`header__logo-link ${isMainPage && 'header__logo-link--active'}`}>
               <img className='header__logo' src='img/logo.svg' alt='6 cities logo' width='81' height='41'/>
-            </a>
+            </Link>
           </div>
           {!isLoginPage && (
             <nav className='header__nav'>

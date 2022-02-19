@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
-import { MainProps } from './components/main/main';
+import { MainProps } from './pages/main/main';
+import { BrowserRouter } from 'react-router-dom';
 
 const PageData: MainProps = {
   rentOffersTotal: 666,
@@ -9,6 +10,8 @@ const PageData: MainProps = {
 
 ReactDOM.render(
   <React.StrictMode>
-    <App rentOffersTotal={PageData.rentOffersTotal}/>
+    <BrowserRouter>
+      <App rentOffersTotal={PageData.rentOffersTotal}/>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root'));
