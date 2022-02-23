@@ -20,7 +20,7 @@ function App(props: AppProps): JSX.Element {
       <Route path={Page.Place} element={<PlacePage isLoggedIn/>}/>
       <Route path={Page.Favorites} element={(
         <PrivateRoute authorizationStatus={AuthorizationStatus.Authorized}>
-          <Favorites/>
+          <Favorites placeInfoList={placeInfoList}/>
         </PrivateRoute>
       )}
       />
