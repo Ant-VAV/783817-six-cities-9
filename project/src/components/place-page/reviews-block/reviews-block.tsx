@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Reviews } from '../../../types/client';
+import { Review } from '../../../types/client';
 import { getReviews } from '../../../mocks/reviews';
 import { ReviewItem } from '../review-item/review-item';
 import { ReviewForm } from '../review-form/review-form';
@@ -11,7 +11,7 @@ interface ReviewsProps {
 
 export function ReviewsBlock(props: ReviewsProps) {
   const { isLoggedIn, placeId } = props;
-  const [reviews, setReviews] = useState<Reviews>();
+  const [reviews, setReviews] = useState<Review[]>();
 
   useEffect(() => {
     if (placeId === 1) {

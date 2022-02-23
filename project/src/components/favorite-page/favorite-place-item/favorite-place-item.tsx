@@ -1,8 +1,8 @@
 import { FavoriteCard } from '../favorite-card/favorite-card';
-import { PlaceInfoList } from '../../../types/client';
+import { PlaceInfo } from '../../../types/client';
 
 interface FavoritePlaceItemProps {
-  placeInfoList: PlaceInfoList;
+  placeInfoList: PlaceInfo[];
   city: string
 }
 

@@ -2,10 +2,10 @@ import { TabList } from '../../components/tab-list/tab-list';
 import { Places } from '../../components/places/places';
 import { PlacesEmpty } from '../../components/places/places-empty';
 import { Header } from '../../components/layout/header/header';
-import { PlaceInfoList } from '../../types/client';
+import { PlaceInfo } from '../../types/client';
 
 export interface MainProps {
-  placeInfoList: PlaceInfoList;
+  placeInfoList: PlaceInfo[];
 }
 
 function Main(props: MainProps) {

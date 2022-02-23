@@ -1,6 +1,6 @@
-import { Reviews } from '../types/client';
+import { Review } from '../types/client';
 
-export const getReviews = (): Reviews =>
+export const getReviews = (): Review[] =>
   [
     {
       id: 1,

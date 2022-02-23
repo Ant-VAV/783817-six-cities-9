@@ -6,10 +6,10 @@ import { PlacePage } from '../../pages/place-page/place-page';
 import { Favorites } from '../../pages/favorites/favorites';
 import { Login } from '../../pages/login/login';
 import { PrivateRoute } from '../private-route/private-route';
-import { PlaceInfoList } from '../../types/client';
+import { PlaceInfo } from '../../types/client';
 
 interface AppProps {
-  placeInfoList: PlaceInfoList;
+  placeInfoList: PlaceInfo[];
 }
 
 function App(props: AppProps): JSX.Element {

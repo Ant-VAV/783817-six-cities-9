@@ -1,6 +1,6 @@
-import { PlaceInfoList } from '../types/client';
+import { PlaceInfo } from '../types/client';
 
-export const getPlaceListInfo = (): PlaceInfoList => ([
+export const getPlaceListInfo = (): PlaceInfo[] => ([
   {
     city: {
       name: 'Cologne',

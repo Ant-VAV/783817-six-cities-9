@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { PlaceCard } from '../place-card/place-card';
-import { PlaceInfoList } from '../../types/client';
+import { PlaceInfo } from '../../types/client';
 
 interface CitiesProps {
-  placeInfoList: PlaceInfoList;
+  placeInfoList: PlaceInfo[];
 }
 
 export function Places(props: CitiesProps) {
   const { placeInfoList } = props;
-  const [activePlaceCard, setActivePlaceCard] = useState<number>();
+  const [, setActivePlaceCard] = useState<number>();
 
   return (
     <div className='cities__places-container container'>

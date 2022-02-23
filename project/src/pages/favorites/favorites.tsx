@@ -1,12 +1,12 @@
 import { Header } from '../../components/layout/header/header';
-import { PlaceInfoList } from '../../types/client';
+import { PlaceInfo } from '../../types/client';
 import { FavoritePlaceItem } from '../../components/favorite-page/favorite-place-item/favorite-place-item';
 import { City } from '../../const';
 import { Footer } from '../../components/layout/footer/footer';
 import { FavoritesEmpty } from '../../components/favorite-page/favorites-empty/favorites-empty';
 
 interface FavoritesProps {
-  placeInfoList: PlaceInfoList;
+  placeInfoList: PlaceInfo[];
 }
 
 export function Favorites(props: FavoritesProps) {

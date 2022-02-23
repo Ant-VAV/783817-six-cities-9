@@ -1,6 +1,3 @@
-export interface PlaceInfoList extends Array<PlaceInfo> {
-}
-
 export interface PlaceInfo {
   bedrooms: number;
   city: City;
@@ -37,8 +34,6 @@ interface City {
   location: PlaceLocation;
   name: string;
 }
-
-export interface Reviews extends Array<Review> {}
 
 export interface Review {
   comment: string
