@@ -1,17 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { PlaceCard } from '../place-card/place-card';
+import { PlaceInfoList } from '../../types/client';
 
 interface CitiesProps {
-  rentOffersTotal: number;
+  placeInfoList: PlaceInfoList;
 }
 
 export function Places(props: CitiesProps) {
-  const { rentOffersTotal } = props;
+  const { placeInfoList } = props;
+  const [activePlaceCard, setActivePlaceCard] = useState<number>();
+
   return (
     <div className='cities__places-container container'>
       <section className='cities__places places'>
         <h2 className='visually-hidden'>Places</h2>
-        <b className='places__found'>{rentOffersTotal} places to stay in Amsterdam</b>
+        <b className='places__found'>{placeInfoList.length} places to stay in Amsterdam</b>
         <form className='places__sorting' action='#' method='get'>
           <span className='places__sorting-caption'>Sort by</span>
           <span className='places__sorting-type' tabIndex={0}>
@@ -28,11 +31,8 @@ export function Places(props: CitiesProps) {
           </ul>
         </form>
         <div className='cities__places-list places__list tabs__content'>
-          <PlaceCard isPremium/>
-          <PlaceCard/>
-          <PlaceCard/>
-          <PlaceCard isPremium/>
-          <PlaceCard/>
+          {placeInfoList.map((place) => (
+            <PlaceCard placeInfo={place} key={place.id} onSetActive={setActivePlaceCard}/>))}
         </div>
       </section>
       <div className='cities__right-section'>

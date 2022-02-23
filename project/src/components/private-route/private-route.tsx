@@ -3,8 +3,8 @@ import { Navigate } from 'react-router-dom';
 import { AuthorizationStatus, Page } from '../../const';
 
 interface PrivateRouteProps {
-  authorizationStatus: AuthorizationStatus,
-  children: JSX.Element
+  authorizationStatus: AuthorizationStatus;
+  children: JSX.Element;
 }
 
 export function PrivateRoute(props: PrivateRouteProps): JSX.Element {

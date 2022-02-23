@@ -2,14 +2,17 @@ import { TabList } from '../../components/tab-list/tab-list';
 import { Places } from '../../components/places/places';
 import { PlacesEmpty } from '../../components/places/places-empty';
 import { Header } from '../../components/layout/header/header';
+import { PlaceInfoList } from '../../types/client';
 
 export interface MainProps {
-  rentOffersTotal: number;
+  placeInfoList: PlaceInfoList;
 }
 
 function Main(props: MainProps) {
-  const { rentOffersTotal } = props;
-  const hasNoPlaces = rentOffersTotal === 0;
+  const { placeInfoList } = props;
+  const placeCount = placeInfoList.length;
+  const hasNoPlaces = placeCount === 0;
+
   return (
     <div className='page page--gray page--main'>
       <Header isLoggedIn isMainPage/>
@@ -20,7 +23,7 @@ function Main(props: MainProps) {
           {hasNoPlaces ? (
             <PlacesEmpty/>
           ) : (
-            <Places rentOffersTotal={rentOffersTotal}/>
+            <Places placeInfoList={placeInfoList}/>
           )}
         </div>
       </main>

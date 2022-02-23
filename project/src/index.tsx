@@ -1,17 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
-import { MainProps } from './pages/main/main';
 import { BrowserRouter } from 'react-router-dom';
-
-const PageData: MainProps = {
-  rentOffersTotal: 666,
-};
+import { getPlaceListInfo } from './mocks/place-list-info';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App rentOffersTotal={PageData.rentOffersTotal}/>
+      <App placeInfoList={getPlaceListInfo()}/>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root'));
