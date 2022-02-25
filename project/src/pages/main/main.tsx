@@ -11,16 +11,16 @@ export interface MainProps {
 function Main(props: MainProps) {
   const { placeInfoList } = props;
   const placeCount = placeInfoList.length;
-  const hasNoPlaces = placeCount === 0;
+  const isNoPlaces = placeCount === 0;
 
   return (
     <div className='page page--gray page--main'>
       <Header isLoggedIn isMainPage/>
-      <main className={`page__main page__main--index ${hasNoPlaces && 'page__main--index-empty'}`}>
+      <main className={`page__main page__main--index ${isNoPlaces && 'page__main--index-empty'}`}>
         <h1 className='visually-hidden'>Cities</h1>
         <TabList/>
         <div className='cities'>
-          {hasNoPlaces ? (
+          {isNoPlaces ? (
             <PlacesEmpty/>
           ) : (
             <Places placeInfoList={placeInfoList}/>

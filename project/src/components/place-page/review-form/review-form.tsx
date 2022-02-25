@@ -1,19 +1,16 @@
 import React, { useState } from 'react';
 import { Review } from '../../../types/client';
+import { getEmptyReview } from '../../../helpers';
 
 export function ReviewForm() {
-  const [newReview, setNewReview] = useState<Review>();
+  const [newReview, setNewReview] = useState<Review>(getEmptyReview);
 
   const handleChangeComment = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setNewReview((prevState) => (prevState
-      ? { ...prevState, comment: e.target.value }
-      : prevState));
+    setNewReview((prevState) => ({ ...prevState, comment: e.target.value }));
   };
 
   const handleChangeRate = (e: React.FormEvent<HTMLDivElement>) => {
-    setNewReview((prevState) => (prevState
-      ? { ...prevState, rating: parseInt((e.target as HTMLInputElement).value, 10) }
-      : prevState));
+    setNewReview((prevState) => ({ ...prevState, rating: parseInt((e.target as HTMLInputElement).value, 10) }));
   };
 
   return (

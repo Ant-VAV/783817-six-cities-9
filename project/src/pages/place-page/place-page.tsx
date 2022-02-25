@@ -23,12 +23,14 @@ export function PlacePage(props: PlacePageProps) {
   const [place, setPlace] = useState<PlaceInfo>();
 
   useEffect(() => {
-    const placeInfo = getPlaceInfo(id);
-    if (!placeInfo) {
-      navigate(Page.Main);
+    if (id) {
+      const placeInfo = getPlaceInfo(id);
+      if (!placeInfo) {
+        navigate(Page.Main);
+      }
+      setPlace(getPlaceInfo(id));
     }
-    setPlace(getPlaceInfo(id));
-  }, [getPlaceInfo, id, Page]);
+  }, [id]);
 
 
   return (
