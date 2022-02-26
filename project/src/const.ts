@@ -10,3 +10,12 @@ export enum AuthorizationStatus {
   Authorized = 'authorized',
   NotAuthorized = 'notAuthorized',
 }
+
+export enum City {
+  Paris = 'Paris',
+  Cologne = 'Cologne',
+  Brussels = 'Brussels',
+  Amsterdam = 'Amsterdam',
+  Hamburg = 'Hamburg',
+  Dusseldorf = 'Dusseldorf',
+}

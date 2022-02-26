@@ -1,8 +1,8 @@
 import React from 'react';
 
 interface TabListItemProps {
-  cityName: string
-  isActive?: boolean
+  cityName: string;
+  isActive?: boolean;
 }
 
 export function TabListItem(props: TabListItemProps) {
