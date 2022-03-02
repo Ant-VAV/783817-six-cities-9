@@ -6,18 +6,22 @@ import { PlacePrice } from './place-price';
 
 interface PlaceCardProps {
   placeInfo: PlaceInfo;
-  onSetActive: (id: number) => void;
+  onSetActivePlaceId: (id: number) => void;
 }
 
 export function PlaceCard(props: PlaceCardProps) {
-  const { placeInfo, onSetActive } = props;
+  const { placeInfo, onSetActivePlaceId } = props;
 
   const handleMouseOver = () => {
-    onSetActive(placeInfo.id);
+    onSetActivePlaceId(placeInfo.id);
+  };
+
+  const handleMouseLeave = () => {
+    onSetActivePlaceId(-1);
   };
 
   return (
-    <article className='cities__place-card place-card' onMouseOver={handleMouseOver}>
+    <article className='cities__place-card place-card' onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave}>
       {placeInfo.isPremium && (
         <div className='place-card__mark'>
           <span>Premium</span>

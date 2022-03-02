@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { PlaceCard } from '../place-card/place-card';
 import { PlaceInfo } from '../../types/client';
+import { Map } from '../map/map';
 
 interface CitiesProps {
   placeInfoList: PlaceInfo[];
@@ -8,7 +9,7 @@ interface CitiesProps {
 
 export function Places(props: CitiesProps) {
   const { placeInfoList } = props;
-  const [, setActivePlaceCard] = useState<number>();
+  const [activePlaceCardId, setActivePlaceCardId] = useState<number>(-1);
 
   return (
     <div className='cities__places-container container'>
@@ -32,11 +33,14 @@ export function Places(props: CitiesProps) {
         </form>
         <div className='cities__places-list places__list tabs__content'>
           {placeInfoList.map((place) => (
-            <PlaceCard placeInfo={place} key={place.id} onSetActive={setActivePlaceCard}/>))}
+            <PlaceCard placeInfo={place} key={place.id} onSetActivePlaceId={setActivePlaceCardId}/>))}
         </div>
       </section>
       <div className='cities__right-section'>
-        <section className='cities__map map'/>
+        <Map initialCity={placeInfoList[0].city.location}
+          points={placeInfoList.map((place) => ({ ...place.location, placeId: place.id }))}
+          activePlaceId={activePlaceCardId}
+        />
       </div>
     </div>
   );
