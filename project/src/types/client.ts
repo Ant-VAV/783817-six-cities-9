@@ -24,10 +24,14 @@ export interface User {
   name: string;
 }
 
-interface PlaceLocation {
+export interface PlaceLocation {
   latitude: number;
   longitude: number;
   zoom: number;
+}
+
+export interface MapPlaceLocation extends PlaceLocation{
+  placeId: number;
 }
 
 interface City {

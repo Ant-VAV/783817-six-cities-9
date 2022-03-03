@@ -30,7 +30,7 @@ export function PlacePage(props: PlacePageProps) {
       }
       setPlace(getPlaceInfo(id));
     }
-  }, [id]);
+  }, [id, navigate]);
 
 
   return (

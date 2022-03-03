@@ -19,7 +19,7 @@ export function ReviewsBlock(props: ReviewsProps) {
       return;
     }
     setReviews([]);
-  }, [placeId, getReviews]);
+  }, [placeId]);
 
 
   return (
