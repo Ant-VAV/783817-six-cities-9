@@ -1,23 +1,24 @@
 import 'leaflet/dist/leaflet.css';
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../const';
 import leaflet from 'leaflet';
 import { useMap } from '../../hooks/useMap';
 import { MapPlaceLocation, PlaceLocation } from '../../types/client';
 
 interface MapProps {
-  initialCity: PlaceLocation;
-  points: MapPlaceLocation[];
-  activePlaceId: number
+  anchorPoint: PlaceLocation;
+  points?: MapPlaceLocation[];
+  activePlaceId?: number;
+  className?: string;
 }
 
 export function Map(props: MapProps) {
-  const { initialCity, points, activePlaceId } = props;
+  const { anchorPoint, points, activePlaceId, className } = props;
   const mapRef = useRef<HTMLDivElement>(null);
-  const map = useMap(mapRef, initialCity);
+  const map = useMap(mapRef, anchorPoint);
 
   useEffect(() => {
-    if (map) {
+    if (map && points) {
       points.forEach((point) => {
         leaflet
           .marker({
@@ -31,7 +32,7 @@ export function Map(props: MapProps) {
   }, [map, points, activePlaceId]);
 
   return (
-    <section className='cities__map map' ref={mapRef}/>
+    <section className={className} ref={mapRef}/>
   );
 
 }

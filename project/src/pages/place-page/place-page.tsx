@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { Header } from '../../components/layout/header/header';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PlaceInfo } from '../../types/client';
 import { getPlaceInfo } from '../../mocks/place-info';
 import { Page } from '../../const';
@@ -11,6 +11,8 @@ import { Inside } from '../../components/place-page/inside/inside';
 import { NearPlaces } from '../../components/place-page/near-places/near-places';
 import { PlaceHostBlock } from '../../components/place-page/place-host-block/place-host-block';
 import { ReviewsBlock } from '../../components/place-page/reviews-block/reviews-block';
+import { Map } from '../../components/map/map';
+import { getPlaceListInfo } from '../../mocks/place-list-info';
 
 interface PlacePageProps {
   isLoggedIn: boolean;
@@ -21,6 +23,12 @@ export function PlacePage(props: PlacePageProps) {
   const { id } = useParams();
   const navigate = useNavigate();
   const [place, setPlace] = useState<PlaceInfo>();
+  const [activePlaceCardId, setActivePlaceCardId] = useState<number>(-1);
+  const [nearPlaces, setNearPlaces] = useState<PlaceInfo[]>([]);
+
+  useEffect(() => {
+    setNearPlaces(getPlaceListInfo().slice(0, 3));
+  }, []);
 
   useEffect(() => {
     if (id) {
@@ -31,7 +39,6 @@ export function PlacePage(props: PlacePageProps) {
       setPlace(getPlaceInfo(id));
     }
   }, [id, navigate]);
-
 
   return (
     <div className='page page--gray page--main'>
@@ -77,9 +84,13 @@ export function PlacePage(props: PlacePageProps) {
                 <ReviewsBlock isLoggedIn placeId={place.id}/>
               </div>
             </div>
-            <section className='property__map map'/>
+            <Map anchorPoint={place.location}
+              points={nearPlaces.map((nearPlace) => ({ ...nearPlace.location, placeId: nearPlace.id }))}
+              activePlaceId={activePlaceCardId}
+              className='property__map map'
+            />
           </section>
-          <NearPlaces/>
+          {nearPlaces.length > 0 && (<NearPlaces nearPlaces={nearPlaces} onSetActivePlaceId={setActivePlaceCardId}/>)}
         </main>
       )}
     </div>);
