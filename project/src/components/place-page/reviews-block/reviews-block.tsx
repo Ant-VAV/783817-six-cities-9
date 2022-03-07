@@ -28,7 +28,7 @@ export function ReviewsBlock(props: ReviewsProps) {
       </h2>
       {reviews && (
         <ul className='reviews__list'>
-          {reviews?.map((review) => <ReviewItem review={review} key={review.id}/>)}
+          {reviews.map((review) => <ReviewItem review={review} key={review.id}/>)}
         </ul>
       )}
       {isLoggedIn && (
