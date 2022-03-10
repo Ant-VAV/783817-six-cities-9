@@ -87,7 +87,6 @@ export function PlacePage(props: PlacePageProps) {
             <Map anchorPoint={place.location}
               points={nearPlaces.map((nearPlace) => ({ ...nearPlace.location, placeId: nearPlace.id }))}
               activePlaceId={activePlaceCardId}
-              className='property__map map'
             />
           </section>
           {nearPlaces.length > 0 && (<NearPlaces nearPlaces={nearPlaces} onSetActivePlaceId={setActivePlaceCardId}/>)}

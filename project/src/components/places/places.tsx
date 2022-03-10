@@ -40,7 +40,7 @@ export function Places(props: CitiesProps) {
         <Map anchorPoint={placeInfoList[0].city.location}
           points={placeInfoList.map((place) => ({ ...place.location, placeId: place.id }))}
           activePlaceId={activePlaceCardId}
-          className='cities__map map'
+          isMainPage
         />
       </div>
     </div>

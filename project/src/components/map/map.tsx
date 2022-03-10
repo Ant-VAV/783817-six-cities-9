@@ -9,13 +9,14 @@ interface MapProps {
   anchorPoint: PlaceLocation;
   points?: MapPlaceLocation[];
   activePlaceId?: number;
-  className?: string;
+  isMainPage?: boolean
 }
 
 export function Map(props: MapProps) {
-  const { anchorPoint, points, activePlaceId, className } = props;
+  const { anchorPoint, points, activePlaceId, isMainPage } = props;
   const mapRef = useRef<HTMLDivElement>(null);
   const map = useMap(mapRef, anchorPoint);
+  const className = `${isMainPage ? 'cities' : 'property'}__map map`;
 
   useEffect(() => {
     if (map && points) {
