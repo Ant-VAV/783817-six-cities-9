@@ -27,7 +27,7 @@ export const getPlaceListInfo = (): PlaceInfo[] => ([
       'https://9.react.pages.academy/static/hotel/7.jpg',
       'https://9.react.pages.academy/static/hotel/5.jpg',
     ],
-    title: 'The house among olive ',
+    title: 'The house among olive',
     isFavorite: false,
     isPremium: true,
     rating: 3.5,

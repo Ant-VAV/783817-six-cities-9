@@ -6,11 +6,14 @@ import { PlacePrice } from './place-price';
 
 interface PlaceCardProps {
   placeInfo: PlaceInfo;
+  isNeraPlaces?: boolean;
   onSetActivePlaceId: (id: number) => void;
 }
 
 export function PlaceCard(props: PlaceCardProps) {
-  const { placeInfo, onSetActivePlaceId } = props;
+  const { placeInfo, onSetActivePlaceId, isNeraPlaces = false } = props;
+
+  const classStyle = isNeraPlaces ? 'near-places' : 'cities';
 
   const handleMouseOver = () => {
     onSetActivePlaceId(placeInfo.id);
@@ -21,13 +24,13 @@ export function PlaceCard(props: PlaceCardProps) {
   };
 
   return (
-    <article className='cities__place-card place-card' onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave}>
+    <article className={`${classStyle}__place-card place-card`} onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave}>
       {placeInfo.isPremium && (
         <div className='place-card__mark'>
           <span>Premium</span>
         </div>
       )}
-      <div className='cities__image-wrapper place-card__image-wrapper'>
+      <div className={`${classStyle}__image-wrapper place-card__image-wrapper`}>
         <Link to={getPlaceHref(placeInfo.id)}>
           <img
             className='place-card__image' src={placeInfo.previewImage} width='260' height='200'
