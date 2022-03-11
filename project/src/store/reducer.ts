@@ -15,6 +15,6 @@ export const reducer = createReducer(initialState, (builder) => {
       state.city = action.payload || initialState.city;
     })
     .addCase(getPlaceListInfoAction, (state, action) => {
-      state.placeInfoList = getPlaceListInfoByCity((action.payload as any) as City);
+      state.placeInfoList = getPlaceListInfoByCity(action.payload);
     });
 });
