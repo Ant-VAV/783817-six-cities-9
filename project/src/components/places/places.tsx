@@ -2,20 +2,22 @@ import React, { useState } from 'react';
 import { PlaceCard } from '../place-card/place-card';
 import { PlaceInfo } from '../../types/client';
 import { Map } from '../map/map';
+import { City } from '../../const';
 
 interface CitiesProps {
   placeInfoList: PlaceInfo[];
+  activeCity: City;
 }
 
 export function Places(props: CitiesProps) {
-  const { placeInfoList } = props;
+  const { placeInfoList, activeCity } = props;
   const [activePlaceCardId, setActivePlaceCardId] = useState<number>(-1);
 
   return (
     <div className='cities__places-container container'>
       <section className='cities__places places'>
         <h2 className='visually-hidden'>Places</h2>
-        <b className='places__found'>{placeInfoList.length} places to stay in Amsterdam</b>
+        <b className='places__found'>{placeInfoList.length} places to stay in {activeCity}</b>
         <form className='places__sorting' action='#' method='get'>
           <span className='places__sorting-caption'>Sort by</span>
           <span className='places__sorting-type' tabIndex={0}>

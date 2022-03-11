@@ -1,30 +1,43 @@
-import { TabList } from '../../components/tab-list/tab-list';
+import { CityList } from '../../components/city-list/city-list';
 import { Places } from '../../components/places/places';
 import { PlacesEmpty } from '../../components/places/places-empty';
 import { Header } from '../../components/layout/header/header';
-import { PlaceInfo } from '../../types/client';
+import { City } from '../../const';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks/state';
+import { changeCityAction, getPlaceListInfoAction } from '../../store/actions';
 
-export interface MainProps {
-  placeInfoList: PlaceInfo[];
-}
+function Main() {
+  const { city } = useParams();
+  const activeCity = useAppSelector((state) => state.city);
+  const placeInfoList = useAppSelector((state) => state.placeInfoList);
+  const dispatch = useAppDispatch();
+  const isNoPlaces = placeInfoList && placeInfoList.length === 0;
 
-function Main(props: MainProps) {
-  const { placeInfoList } = props;
-  const placeCount = placeInfoList.length;
-  const isNoPlaces = placeCount === 0;
+  useEffect(() => {
+    if (city && Object.keys(City).includes(city)) {
+      dispatch(changeCityAction(city));
+      dispatch(getPlaceListInfoAction(city));
+      return;
+    }
+    dispatch(changeCityAction(City.Paris));
+    dispatch(getPlaceListInfoAction(City.Paris));
+  }, [city, dispatch]);
 
   return (
     <div className='page page--gray page--main'>
       <Header isLoggedIn isMainPage/>
-      <main className={`page__main page__main--index ${isNoPlaces && 'page__main--index-empty'}`}>
+      <main className={`page__main page__main--index ${isNoPlaces ? 'page__main--index-empty' : ''}`}>
         <h1 className='visually-hidden'>Cities</h1>
-        <TabList/>
+        <CityList activeCity={activeCity}/>
         <div className='cities'>
-          {isNoPlaces ? (
-            <PlacesEmpty/>
-          ) : (
-            <Places placeInfoList={placeInfoList}/>
-          )}
+          {placeInfoList && (
+            placeInfoList.length === 0 ? (
+              <PlacesEmpty activeCity={activeCity}/>
+            ) : (
+              <Places placeInfoList={placeInfoList} activeCity={activeCity}/>
+            ))}
         </div>
       </main>
     </div>

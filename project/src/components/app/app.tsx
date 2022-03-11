@@ -16,7 +16,10 @@ function App(props: AppProps): JSX.Element {
   const { placeInfoList } = props;
   return (
     <Routes>
-      <Route path={Page.Main} element={<Main placeInfoList={placeInfoList}/>}/>
+      <Route path={Page.Main}>
+        <Route index element={<Main/>}/>
+        <Route path={Page.City} element={<Main/>}/>
+      </Route>
       <Route path={Page.Place} element={<PlacePage isLoggedIn/>}/>
       <Route path={Page.Favorites} element={(
         <PrivateRoute authorizationStatus={AuthorizationStatus.Authorized}>

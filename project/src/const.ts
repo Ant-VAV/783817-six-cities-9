@@ -1,5 +1,6 @@
 export enum Page {
   Main = '/',
+  City = ':city',
   LogIn = '/login',
   Favorites = '/favorites',
   Place = '/place/:id',
