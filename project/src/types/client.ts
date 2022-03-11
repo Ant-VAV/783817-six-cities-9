@@ -1,3 +1,5 @@
+import { City as CityEnum } from '../const';
+
 export interface PlaceInfo {
   bedrooms: number;
   city: City;
@@ -30,7 +32,7 @@ export interface PlaceLocation {
   zoom: number;
 }
 
-export interface MapPlaceLocation extends PlaceLocation{
+export interface MapPlaceLocation extends PlaceLocation {
   placeId: number;
 }
 
@@ -45,4 +47,9 @@ export interface Review {
   id: number
   rating: number
   user: User
+}
+
+export interface State {
+  city: CityEnum;
+  placeInfoList: PlaceInfo[];
 }
