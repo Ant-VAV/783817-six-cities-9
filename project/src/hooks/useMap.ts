@@ -6,22 +6,29 @@ export function useMap(mapRef: RefObject<HTMLDivElement>, city: PlaceLocation) {
   const [map, setMap] = useState<leaflet.Map>();
 
   useEffect(() => {
-    if (mapRef.current !== null && !map) {
-      const instance = leaflet.map(mapRef.current, {
-        center: {
+    if (mapRef.current !== null) {
+      if (!map) {
+        const instance = leaflet.map(mapRef.current, {
+          center: {
+            lat: city.latitude,
+            lng: city.longitude,
+          },
+          zoom: city.zoom,
+        });
+
+        leaflet
+          .tileLayer(
+            'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+          )
+          .addTo(instance);
+
+        setMap(instance);
+      } else {
+        map.setView({
           lat: city.latitude,
           lng: city.longitude,
-        },
-        zoom: city.zoom,
-      });
-
-      leaflet
-        .tileLayer(
-          'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
-        )
-        .addTo(instance);
-
-      setMap(instance);
+        }, city.zoom);
+      }
     }
   }, [mapRef, map, city]);
 
