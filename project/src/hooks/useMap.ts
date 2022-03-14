@@ -23,11 +23,6 @@ export function useMap(mapRef: RefObject<HTMLDivElement>, city: PlaceLocation) {
           .addTo(instance);
 
         setMap(instance);
-      } else {
-        map.setView({
-          lat: city.latitude,
-          lng: city.longitude,
-        }, city.zoom);
       }
     }
   }, [mapRef, map, city]);

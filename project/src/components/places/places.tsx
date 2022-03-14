@@ -43,6 +43,7 @@ export function Places(props: CitiesProps) {
           points={placeInfoList.map((place) => ({ ...place.location, placeId: place.id }))}
           activePlaceId={activePlaceCardId}
           isMainPage
+          key={activeCity}
         />
       </div>
     </div>
