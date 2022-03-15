@@ -1,5 +1,5 @@
 import { PlaceInfo } from '../types/client';
-import { City } from '../const';
+import { City, SortType } from '../const';
 
 export const getPlaceListInfo = (): PlaceInfo[] => ([
   {
@@ -564,3 +564,20 @@ export const getPlaceListInfo = (): PlaceInfo[] => ([
 export const getPlaceListInfoByCity = (city: City): PlaceInfo[] => (
   getPlaceListInfo().filter((place) => place.city.name === city)
 );
+
+export const getFilteredPlaceListInfo = (city: City, sort?: SortType): PlaceInfo[] => {
+  const filtered = getPlaceListInfo().filter((place) => place.city.name === city);
+  if (sort) {
+    switch (sort) {
+      case SortType.PriceAsc:
+        return filtered.sort((a, b) => a.price - b.price);
+      case SortType.PriceDesc:
+        return filtered.sort((a, b) => b.price - a.price);
+      case SortType.RatedFirst:
+        return filtered.sort((a, b) => b.rating - a.rating);
+      default:
+        return filtered;
+    }
+  }
+  return filtered;
+};
