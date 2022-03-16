@@ -41,3 +41,9 @@ export enum SortType {
 export enum SearchParams {
   Sort = 'sort'
 }
+
+export enum APIRoute {
+  Hotels = '/hotels',
+  Login = '/login',
+  Logout = '/logout',
+}
