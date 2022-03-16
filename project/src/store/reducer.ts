@@ -1,13 +1,15 @@
 import { City, SortType } from '../const';
-import { getFilteredPlaceListInfo, getPlaceListInfo } from '../mocks/place-list-info';
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCityAction, changeSortType, getPlaceListInfoAction } from './actions';
+import { changeCityAction, changeSortType, getCurrentPlaceListInfoAction, setPlaceListInfoAction } from './actions';
 import { State } from '../types/client';
+import { getFilteredPlaceListInfo } from '../helpers';
 
 const initialState: State = {
   city: City.Paris,
-  placeInfoList: getPlaceListInfo(),
+  placeInfoList: [],
+  currentPlaceInfoList: [],
   sortType: SortType.Popular,
+  isDataLoaded: false,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -15,10 +17,14 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(changeCityAction, (state, action) => {
       state.city = action.payload || initialState.city;
     })
-    .addCase(getPlaceListInfoAction, (state, action) => {
-      state.placeInfoList = getFilteredPlaceListInfo(state.city, state.sortType);
+    .addCase(getCurrentPlaceListInfoAction, (state, action) => {
+      state.currentPlaceInfoList = getFilteredPlaceListInfo(state.placeInfoList, state.city, state.sortType);
     })
     .addCase(changeSortType, (state, action) => {
       state.sortType = action.payload || initialState.sortType;
+    })
+    .addCase(setPlaceListInfoAction, (state, action) => {
+      state.placeInfoList = action.payload;
+      state.isDataLoaded = true;
     });
 });

@@ -52,5 +52,7 @@ export interface Review {
 export interface State {
   city: CityEnum;
   placeInfoList: PlaceInfo[];
+  currentPlaceInfoList: PlaceInfo[];
   sortType: SortType;
+  isDataLoaded: boolean;
 }

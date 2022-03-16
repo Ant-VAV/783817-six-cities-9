@@ -6,13 +6,13 @@ import { City, SearchParams } from '../../const';
 import { useEffect } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/state';
-import { changeCityAction, changeSortType, getPlaceListInfoAction } from '../../store/actions';
+import { changeCityAction, changeSortType, getCurrentPlaceListInfoAction } from '../../store/actions';
 
 function Main() {
   const { city } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const activeCity = useAppSelector((state) => state.city);
-  const placeInfoList = useAppSelector((state) => state.placeInfoList);
+  const placeInfoList = useAppSelector((state) => state.currentPlaceInfoList);
   const dispatch = useAppDispatch();
   const isNoPlaces = placeInfoList && placeInfoList.length === 0;
 
@@ -21,7 +21,7 @@ function Main() {
       dispatch(changeCityAction(city));
     }
     dispatch(changeSortType(searchParams.get(SearchParams.Sort)));
-    dispatch(getPlaceListInfoAction());
+    dispatch(getCurrentPlaceListInfoAction());
   }, [city, searchParams, dispatch]);
 
   return (
