@@ -1,4 +1,4 @@
-import { City as CityEnum } from '../const';
+import { City as CityEnum, SortType } from '../const';
 
 export interface PlaceInfo {
   bedrooms: number;
@@ -52,4 +52,5 @@ export interface Review {
 export interface State {
   city: CityEnum;
   placeInfoList: PlaceInfo[];
+  sortType: SortType;
 }

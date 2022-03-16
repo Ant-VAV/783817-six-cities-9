@@ -2,14 +2,15 @@ import { CityList } from '../../components/city-list/city-list';
 import { Places } from '../../components/places/places';
 import { PlacesEmpty } from '../../components/places/places-empty';
 import { Header } from '../../components/layout/header/header';
-import { City } from '../../const';
+import { City, SearchParams } from '../../const';
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/state';
-import { changeCityAction, getPlaceListInfoAction } from '../../store/actions';
+import { changeCityAction, changeSortType, getPlaceListInfoAction } from '../../store/actions';
 
 function Main() {
   const { city } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const activeCity = useAppSelector((state) => state.city);
   const placeInfoList = useAppSelector((state) => state.placeInfoList);
   const dispatch = useAppDispatch();
@@ -18,12 +19,10 @@ function Main() {
   useEffect(() => {
     if (city && Object.keys(City).includes(city)) {
       dispatch(changeCityAction(city));
-      dispatch(getPlaceListInfoAction(city));
-      return;
     }
-    dispatch(changeCityAction(City.Paris));
-    dispatch(getPlaceListInfoAction(City.Paris));
-  }, [city, dispatch]);
+    dispatch(changeSortType(searchParams.get(SearchParams.Sort)));
+    dispatch(getPlaceListInfoAction());
+  }, [city, searchParams, dispatch]);
 
   return (
     <div className='page page--gray page--main'>
@@ -36,7 +35,7 @@ function Main() {
             placeInfoList.length === 0 ? (
               <PlacesEmpty activeCity={activeCity}/>
             ) : (
-              <Places placeInfoList={placeInfoList} activeCity={activeCity}/>
+              <Places placeInfoList={placeInfoList} activeCity={activeCity} onSetSortType={setSearchParams} />
             ))}
         </div>
       </main>

@@ -21,11 +21,23 @@ export enum City {
   Dusseldorf = 'Dusseldorf',
 }
 
-export const URL_MARKER_DEFAULT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
+export const URL_MARKER_DEFAULT = 'img/pin.svg';
 
-export const URL_MARKER_CURRENT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
+export const URL_MARKER_CURRENT = 'img/pin-active.svg';
 
-export enum StoreActions {
-  CHANGE_CITY = 'CHANGE_CITY',
-  GET_PLACES_INFO = 'GET_PLACES_INFO',
+export enum StoreAction {
+  ChangeCity = 'ChangeCity',
+  GetPlaceInfo = 'GetPlaceInfo',
+  ChangeSortType = 'ChangeSortType',
+}
+
+export enum SortType {
+  Popular = 'Popular',
+  PriceAsc = 'PriceAsc',
+  PriceDesc = 'PriceDesc',
+  RatedFirst = 'RatedFirst'
+}
+
+export enum SearchParams {
+  Sort = 'sort'
 }

@@ -3,14 +3,17 @@ import { PlaceCard } from '../place-card/place-card';
 import { PlaceInfo } from '../../types/client';
 import { Map } from '../map/map';
 import { City } from '../../const';
+import { Sorter } from '../sorter/sorter';
+import { URLSearchParamsInit } from 'react-router-dom';
 
 interface CitiesProps {
   placeInfoList: PlaceInfo[];
   activeCity: City;
+  onSetSortType: (nextInit: URLSearchParamsInit) => void;
 }
 
 export function Places(props: CitiesProps) {
-  const { placeInfoList, activeCity } = props;
+  const { placeInfoList, activeCity, onSetSortType } = props;
   const [activePlaceCardId, setActivePlaceCardId] = useState<number>(-1);
 
   return (
@@ -18,21 +21,7 @@ export function Places(props: CitiesProps) {
       <section className='cities__places places'>
         <h2 className='visually-hidden'>Places</h2>
         <b className='places__found'>{placeInfoList.length} places to stay in {activeCity}</b>
-        <form className='places__sorting' action='#' method='get'>
-          <span className='places__sorting-caption'>Sort by</span>
-          <span className='places__sorting-type' tabIndex={0}>
-                    Popular
-            <svg className='places__sorting-arrow' width='7' height='4'>
-              <use xlinkHref='#icon-arrow-select'/>
-            </svg>
-          </span>
-          <ul className='places__options places__options--custom places__options--opened'>
-            <li className='places__option places__option--active' tabIndex={0}>Popular</li>
-            <li className='places__option' tabIndex={0}>Price: low to high</li>
-            <li className='places__option' tabIndex={0}>Price: high to low</li>
-            <li className='places__option' tabIndex={0}>Top rated first</li>
-          </ul>
-        </form>
+        <Sorter onSetSortType={onSetSortType}/>
         <div className='cities__places-list places__list tabs__content'>
           {placeInfoList.map((place) => (
             <PlaceCard placeInfo={place} key={place.id} onSetActivePlaceId={setActivePlaceCardId}/>))}
@@ -43,6 +32,7 @@ export function Places(props: CitiesProps) {
           points={placeInfoList.map((place) => ({ ...place.location, placeId: place.id }))}
           activePlaceId={activePlaceCardId}
           isMainPage
+          key={activeCity}
         />
       </div>
     </div>
