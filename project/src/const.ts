@@ -27,8 +27,13 @@ export const URL_MARKER_CURRENT = 'img/pin-active.svg';
 
 export enum StoreAction {
   ChangeCity = 'ChangeCity',
-  GetPlaceInfo = 'GetPlaceInfo',
+  GetCurrentPlaceInfo = 'GetCurrentPlaceInfo',
   ChangeSortType = 'ChangeSortType',
+  SetPlaceInfo = 'SetPlaceInfo',
+}
+
+export enum StoreApiAction {
+  FetchPlacesInfoListAsync = 'FetchPlacesInfoListAsync',
 }
 
 export enum SortType {
@@ -40,4 +45,10 @@ export enum SortType {
 
 export enum SearchParams {
   Sort = 'sort'
+}
+
+export enum APIRoute {
+  Hotels = '/hotels',
+  Login = '/login',
+  Logout = '/logout',
 }
