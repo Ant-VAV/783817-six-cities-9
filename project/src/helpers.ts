@@ -1,5 +1,5 @@
 import { PlaceInfo, Review } from './types/client';
-import { City, SortType } from './const';
+import { AuthorizationStatus, City, SortType } from './const';
 
 export const capitaliseFirstLetter = (value: string) => value.charAt(0).toUpperCase() + value.slice(1);
 
@@ -36,3 +36,6 @@ export const getFilteredPlaceListInfo = (places: PlaceInfo[], city: City, sort?:
   }
   return filtered;
 };
+
+export const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean =>
+  authorizationStatus === AuthorizationStatus.Unknown;

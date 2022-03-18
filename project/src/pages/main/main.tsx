@@ -26,7 +26,7 @@ function Main() {
 
   return (
     <div className='page page--gray page--main'>
-      <Header isLoggedIn isMainPage/>
+      <Header isMainPage/>
       <main className={`page__main page__main--index ${isNoPlaces ? 'page__main--index-empty' : ''}`}>
         <h1 className='visually-hidden'>Cities</h1>
         <CityList activeCity={activeCity}/>
@@ -35,7 +35,7 @@ function Main() {
             placeInfoList.length === 0 ? (
               <PlacesEmpty activeCity={activeCity}/>
             ) : (
-              <Places placeInfoList={placeInfoList} activeCity={activeCity} onSetSortType={setSearchParams} />
+              <Places placeInfoList={placeInfoList} activeCity={activeCity} onSetSortType={setSearchParams}/>
             ))}
         </div>
       </main>
