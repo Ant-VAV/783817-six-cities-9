@@ -9,13 +9,13 @@ import { PrivateRoute } from '../private-route/private-route';
 import { getPlaceListInfo } from '../../mocks/place-list-info';
 import { useAppSelector } from '../../hooks/state';
 import { TailSpin } from 'react-loader-spinner';
-import { isCheckedAuth } from '../../helpers';
+import { isUnknownAuthStatus } from '../../helpers';
 
 function App(): JSX.Element {
   const isDataLoaded = useAppSelector((state) => state.isDataLoaded);
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
-  if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
+  if (isUnknownAuthStatus(authorizationStatus) || !isDataLoaded) {
     return (
       <TailSpin ariaLabel='loading-indicator'/>
     );

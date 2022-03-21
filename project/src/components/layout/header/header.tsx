@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
-import { AuthorizationStatus, Page } from '../../../const';
+import { Page } from '../../../const';
 import { useAppDispatch, useAppSelector } from '../../../hooks/state';
 import React from 'react';
 import { logoutAction } from '../../../store/api-actions';
+import { isAuthorized } from '../../../helpers';
 
 interface HeaderProps {
   isMainPage?: boolean;
@@ -13,7 +14,7 @@ export function Header(props: HeaderProps) {
   const { isMainPage = false, isLoginPage = false } = props;
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const dispatch = useAppDispatch();
-  const isLoggedIn = authorizationStatus === AuthorizationStatus.Authorized;
+  const isLoggedIn = isAuthorized(authorizationStatus);
 
   const handleLogoutClick = (e: React.MouseEvent) => {
     e.stopPropagation();

@@ -37,5 +37,8 @@ export const getFilteredPlaceListInfo = (places: PlaceInfo[], city: City, sort?:
   return filtered;
 };
 
-export const isCheckedAuth = (authorizationStatus: AuthorizationStatus): boolean =>
+export const isUnknownAuthStatus = (authorizationStatus: AuthorizationStatus): boolean =>
   authorizationStatus === AuthorizationStatus.Unknown;
+
+export const isAuthorized = (authorizationStatus: AuthorizationStatus): boolean =>
+  authorizationStatus === AuthorizationStatus.Authorized;

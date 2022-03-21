@@ -19,8 +19,6 @@ export const handleError = (error: unknown): void => {
   if (response) {
     switch (response.status) {
       case HttpCode.BadRequest:
-        handleErrorMessage(response.data.error);
-        break;
       case HttpCode.Unauthorized:
         handleErrorMessage(response.data.error);
         break;
