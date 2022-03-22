@@ -14,12 +14,7 @@ import { ReviewsBlock } from '../../components/place-page/reviews-block/reviews-
 import { Map } from '../../components/map/map';
 import { getPlaceListInfo } from '../../mocks/place-list-info';
 
-interface PlacePageProps {
-  isLoggedIn: boolean;
-}
-
-export function PlacePage(props: PlacePageProps) {
-  const { isLoggedIn } = props;
+export function PlacePage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [place, setPlace] = useState<PlaceInfo>();
@@ -42,7 +37,7 @@ export function PlacePage(props: PlacePageProps) {
 
   return (
     <div className='page page--gray page--main'>
-      <Header isLoggedIn={isLoggedIn}/>
+      <Header/>
       {place && (
         <main className='page__main page__main--property'>
           <section className='property'>

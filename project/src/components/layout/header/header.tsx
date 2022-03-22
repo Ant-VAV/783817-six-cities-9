@@ -1,14 +1,26 @@
 import { Link } from 'react-router-dom';
 import { Page } from '../../../const';
+import { useAppDispatch, useAppSelector } from '../../../hooks/state';
+import React from 'react';
+import { logoutAction } from '../../../store/api-actions';
+import { isAuthorized } from '../../../helpers';
 
 interface HeaderProps {
-  isLoggedIn?: boolean;
   isMainPage?: boolean;
   isLoginPage?: boolean;
 }
 
 export function Header(props: HeaderProps) {
-  const { isLoggedIn = false, isMainPage = false, isLoginPage = false } = props;
+  const { isMainPage = false, isLoginPage = false } = props;
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const dispatch = useAppDispatch();
+  const isLoggedIn = isAuthorized(authorizationStatus);
+
+  const handleLogoutClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    dispatch(logoutAction());
+  };
+
   return (
     <header className='header'>
       <div className='container'>
@@ -33,7 +45,7 @@ export function Header(props: HeaderProps) {
                 </li>
                 {isLoggedIn && (
                   <li className='header__nav-item'>
-                    <a className='header__nav-link' href='#'>
+                    <a className='header__nav-link' href='/#' onClick={handleLogoutClick}>
                       <span className='header__signout'>Sign out</span>
                     </a>
                   </li>

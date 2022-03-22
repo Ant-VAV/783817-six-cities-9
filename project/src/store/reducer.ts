@@ -1,15 +1,24 @@
-import { City, SortType } from '../const';
+import { AuthorizationStatus, City, SortType } from '../const';
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCityAction, changeSortType, getCurrentPlaceListInfoAction, setPlaceListInfoAction } from './actions';
-import { State } from '../types/client';
+import {
+  changeCityAction,
+  changeSortType,
+  getCurrentPlaceListInfoAction,
+  setAuthStatusAction,
+  setErrorAction,
+  setPlaceListInfoAction
+} from './actions';
+import { GlobalState } from '../types/state';
 import { getFilteredPlaceListInfo } from '../helpers';
 
-const initialState: State = {
+const initialState: GlobalState = {
   city: City.Paris,
   placeInfoList: [],
   currentPlaceInfoList: [],
   sortType: SortType.Popular,
   isDataLoaded: false,
+  authorizationStatus: AuthorizationStatus.Unknown,
+  error: '',
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -26,5 +35,11 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(setPlaceListInfoAction, (state, action) => {
       state.placeInfoList = action.payload;
       state.isDataLoaded = true;
+    })
+    .addCase(setErrorAction, (state, action) => {
+      state.error = action.payload;
+    })
+    .addCase(setAuthStatusAction, (state, action) => {
+      state.authorizationStatus = action.payload;
     });
 });

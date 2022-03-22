@@ -30,10 +30,15 @@ export enum StoreAction {
   GetCurrentPlaceInfo = 'GetCurrentPlaceInfo',
   ChangeSortType = 'ChangeSortType',
   SetPlaceInfo = 'SetPlaceInfo',
+  SetAuthStatus = 'SetAuthStatus',
+  SetErrorAction = 'SetErrorAction',
 }
 
 export enum StoreApiAction {
-  FetchPlacesInfoListAsync = 'FetchPlacesInfoListAsync',
+  FetchPlacesInfoList = 'FetchPlacesInfoList',
+  GetAuthToken = 'GetAuthToken',
+  Logout = 'Logout',
+  ClearError = 'ClearError',
 }
 
 export enum SortType {
@@ -51,4 +56,12 @@ export enum APIRoute {
   Hotels = '/hotels',
   Login = '/login',
   Logout = '/logout',
+}
+
+export const TIMEOUT_SHOW_ERROR = 2000;
+
+export enum HttpCode {
+  BadRequest = 400,
+  Unauthorized = 401,
+  NotFound = 404,
 }

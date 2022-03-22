@@ -17,7 +17,7 @@ export function Favorites(props: FavoritesProps) {
 
   return (
     <div className='page'>
-      <Header isLoggedIn/>
+      <Header/>
       {favoritesPlaces.length > 0
         ? (
           <main className='page__main page__main--favorites'>
