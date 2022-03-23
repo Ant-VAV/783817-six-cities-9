@@ -4,6 +4,7 @@ export enum Page {
   LogIn = '/login',
   Favorites = '/favorites',
   Place = '/place/:id',
+  NotFound = '/404',
 }
 
 export enum AuthorizationStatus {
@@ -33,6 +34,7 @@ export enum StoreAction {
   SetPlaceReview = 'SetPlaceReview',
   SetAuthStatus = 'SetAuthStatus',
   SetErrorAction = 'SetErrorAction',
+  RedirectToPage = 'RedirectToPage',
 }
 
 export enum StoreApiAction {
