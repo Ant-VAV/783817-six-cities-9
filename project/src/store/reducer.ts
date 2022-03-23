@@ -7,7 +7,7 @@ import {
   setAuthStatusAction,
   setErrorAction,
   setPlaceListInfoAction,
-  setPlaceReviewAction,
+  setPlaceReviewAction
 } from './actions';
 import { GlobalState } from '../types/state';
 import { getFilteredPlaceListInfo } from '../helpers';
