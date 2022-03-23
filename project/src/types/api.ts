@@ -11,3 +11,9 @@ export interface UserApi {
   name: string;
   token: string;
 }
+
+export interface ReviewPost {
+  placeId: string;
+  comment: string;
+  rating: string;
+}

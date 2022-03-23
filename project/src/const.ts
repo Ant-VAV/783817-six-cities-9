@@ -29,13 +29,16 @@ export enum StoreAction {
   ChangeCity = 'ChangeCity',
   GetCurrentPlaceInfo = 'GetCurrentPlaceInfo',
   ChangeSortType = 'ChangeSortType',
-  SetPlaceInfo = 'SetPlaceInfo',
+  SetPlaceInfoList = 'SetPlaceInfoList',
+  SetPlaceReview = 'SetPlaceReview',
   SetAuthStatus = 'SetAuthStatus',
   SetErrorAction = 'SetErrorAction',
 }
 
 export enum StoreApiAction {
   FetchPlacesInfoList = 'FetchPlacesInfoList',
+  FetchPlaceReview = 'FetchPlaceReview',
+  PostPlaceReview = 'PostPlaceReview',
   GetAuthToken = 'GetAuthToken',
   Logout = 'Logout',
   ClearError = 'ClearError',
@@ -56,6 +59,7 @@ export enum APIRoute {
   Hotels = '/hotels',
   Login = '/login',
   Logout = '/logout',
+  Comments = '/comments',
 }
 
 export const TIMEOUT_SHOW_ERROR = 2000;
