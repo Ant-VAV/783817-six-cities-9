@@ -1,9 +1,6 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Header } from '../../components/layout/header/header';
-import React, { useEffect, useState } from 'react';
-import { PlaceInfo } from '../../types/client';
-import { getPlaceInfo } from '../../mocks/place-info';
-import { Page } from '../../const';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Gallery } from '../../components/place-page/gallery/gallery';
 import { Rating } from '../../components/rating/rating';
 import { Features } from '../../components/place-page/features/features.';
@@ -12,80 +9,96 @@ import { NearPlaces } from '../../components/place-page/near-places/near-places'
 import { PlaceHostBlock } from '../../components/place-page/place-host-block/place-host-block';
 import { ReviewsBlock } from '../../components/place-page/reviews-block/reviews-block';
 import { Map } from '../../components/map/map';
-import { getPlaceListInfo } from '../../mocks/place-list-info';
+import { api } from '../../store';
+import { PlaceInfo } from '../../types/client';
+import { APIRoute } from '../../const';
+import { handleError } from '../../api/handle-error';
+import { Loader } from '../../components/loader/loader';
 
 export function PlacePage() {
   const { id } = useParams();
-  const navigate = useNavigate();
-  const [place, setPlace] = useState<PlaceInfo>();
   const [activePlaceCardId, setActivePlaceCardId] = useState<number>(-1);
+  const [placeInfo, setPlaceInfo] = useState<PlaceInfo>();
   const [nearPlaces, setNearPlaces] = useState<PlaceInfo[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>();
 
-  useEffect(() => {
-    setNearPlaces(getPlaceListInfo().slice(0, 3));
+  const fetchData = useCallback(async (placeId: string) => {
+    try {
+      setIsLoading(true);
+
+      const placeInfoData = (await api.get<PlaceInfo>(`${APIRoute.Hotels}/${placeId}`)).data;
+      const nearPlacesData = (await api.get<PlaceInfo[]>(`${APIRoute.Hotels}/${placeId}/nearby`)).data;
+
+      setPlaceInfo(placeInfoData);
+      setNearPlaces(nearPlacesData);
+    } catch (e) {
+      handleError(e);
+    } finally {
+      setIsLoading(false);
+    }
   }, []);
 
   useEffect(() => {
     if (id) {
-      const placeInfo = getPlaceInfo(id);
-      if (!placeInfo) {
-        navigate(Page.Main);
-      }
-      setPlace(getPlaceInfo(id));
+      fetchData(id);
     }
-  }, [id, navigate]);
+  }, [id, fetchData]);
 
   return (
     <div className='page page--gray page--main'>
       <Header/>
-      {place && (
-        <main className='page__main page__main--property'>
-          <section className='property'>
-            <Gallery imageUrlList={place.images}/>
-            <div className='property__container container'>
-              <div className='property__wrapper'>
-                {place.isPremium && (
-                  <div className='property__mark'>
-                    <span>Premium</span>
+      <main className='page__main page__main--property'>
+        {isLoading ? (<Loader/>) :
+          (placeInfo && (
+            <>
+              <section className='property'>
+                <Gallery imageUrlList={placeInfo.images}/>
+                <div className='property__container container'>
+                  <div className='property__wrapper'>
+                    {placeInfo.isPremium && (
+                      <div className='property__mark'>
+                        <span>Premium</span>
+                      </div>
+                    )}
+                    <div className='property__name-wrapper'>
+                      <h1 className='property__name'>
+                        {placeInfo.title}
+                      </h1>
+                      <button
+                        className={`property__bookmark-button button ${placeInfo.isFavorite ? 'property__bookmark-button--active' : ''}`}
+                        type='button'
+                      >
+                        <svg className='property__bookmark-icon' width='31' height='33'>
+                          <use xlinkHref='#icon-bookmark'/>
+                        </svg>
+                        <span className='visually-hidden'>To bookmarks</span>
+                      </button>
+                    </div>
+                    <div className='property__rating rating'>
+                      <div className='property__stars rating__stars'>
+                        <Rating rating={placeInfo.rating}/>
+                      </div>
+                      <span className='property__rating-value rating__value'>{placeInfo.rating}</span>
+                    </div>
+                    <Features type={placeInfo.type} bedrooms={placeInfo.bedrooms} adults={placeInfo.maxAdults}/>
+                    <div className='property__price'>
+                      <b className='property__price-value'>&euro;{placeInfo.price}</b>
+                      <span className='property__price-text'>&nbsp;night</span>
+                    </div>
+                    <Inside goods={placeInfo.goods}/>`
+                    <PlaceHostBlock host={placeInfo.host} description={placeInfo.description}/>
+                    <ReviewsBlock placeId={placeInfo.id}/>
                   </div>
-                )}
-                <div className='property__name-wrapper'>
-                  <h1 className='property__name'>
-                    {place.title}
-                  </h1>
-                  <button
-                    className={`property__bookmark-button button ${place.isFavorite ? 'property__bookmark-button--active' : ''}`}
-                    type='button'
-                  >
-                    <svg className='property__bookmark-icon' width='31' height='33'>
-                      <use xlinkHref='#icon-bookmark'/>
-                    </svg>
-                    <span className='visually-hidden'>To bookmarks</span>
-                  </button>
                 </div>
-                <div className='property__rating rating'>
-                  <div className='property__stars rating__stars'>
-                    <Rating rating={place.rating}/>
-                  </div>
-                  <span className='property__rating-value rating__value'>{place.rating}</span>
-                </div>
-                <Features type={place.type} bedrooms={place.bedrooms} adults={place.maxAdults}/>
-                <div className='property__price'>
-                  <b className='property__price-value'>&euro;{place.price}</b>
-                  <span className='property__price-text'>&nbsp;night</span>
-                </div>
-                <Inside goods={place.goods}/>`
-                <PlaceHostBlock host={place.host} description={place.description}/>
-                <ReviewsBlock isLoggedIn placeId={place.id}/>
-              </div>
-            </div>
-            <Map anchorPoint={place.location}
-              points={nearPlaces.map((nearPlace) => ({ ...nearPlace.location, placeId: nearPlace.id }))}
-              activePlaceId={activePlaceCardId}
-            />
-          </section>
-          {nearPlaces.length > 0 && (<NearPlaces nearPlaces={nearPlaces} onSetActivePlaceId={setActivePlaceCardId}/>)}
-        </main>
-      )}
+                <Map anchorPoint={placeInfo.location}
+                  points={nearPlaces.map((nearPlace) => ({ ...nearPlace.location, placeId: nearPlace.id }))}
+                  activePlaceId={activePlaceCardId}
+                />
+              </section>
+              {nearPlaces.length > 0 && (
+                <NearPlaces nearPlaces={nearPlaces} onSetActivePlaceId={setActivePlaceCardId}/>)}
+            </>
+          ))}
+      </main>
     </div>);
 }
