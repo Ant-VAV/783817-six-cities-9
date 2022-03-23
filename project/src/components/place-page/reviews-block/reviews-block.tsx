@@ -1,25 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import { Review } from '../../../types/client';
-import { getReviews } from '../../../mocks/reviews';
+import React, { useEffect } from 'react';
 import { ReviewItem } from '../review-item/review-item';
 import { ReviewForm } from '../review-form/review-form';
+import { useAppDispatch, useAppSelector } from '../../../hooks/state';
+import { AuthorizationStatus } from '../../../const';
+import { fetchPlaceReviewAction } from '../../../store/api-actions';
 
 interface ReviewsProps {
-  isLoggedIn: boolean;
   placeId: number;
 }
 
 export function ReviewsBlock(props: ReviewsProps) {
-  const { isLoggedIn, placeId } = props;
-  const [reviews, setReviews] = useState<Review[]>();
+  const { placeId } = props;
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const dispatch = useAppDispatch();
+  const reviews = useAppSelector((state) => state.placeReview);
+  const isLoggedIn = authorizationStatus === AuthorizationStatus.Authorized;
 
   useEffect(() => {
-    if (placeId === 1) {
-      setReviews(getReviews());
-      return;
-    }
-    setReviews([]);
-  }, [placeId]);
+    dispatch(fetchPlaceReviewAction(placeId.toString()));
+  }, [placeId, dispatch]);
 
 
   return (
@@ -32,7 +31,7 @@ export function ReviewsBlock(props: ReviewsProps) {
         </ul>
       )}
       {isLoggedIn && (
-        <ReviewForm/>
+        <ReviewForm placeId={placeId.toString()}/>
       )}
     </section>
   );
