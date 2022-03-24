@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { Page } from '../../const';
 
 export function Login() {
-  const email = useRef<HTMLInputElement | null>(null);
+  const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -14,9 +14,9 @@ export function Login() {
   const handleSubmitButtonClick = (e: React.MouseEvent) => {
     e.stopPropagation();
 
-    if (email.current && passwordRef.current) {
+    if (emailRef.current && passwordRef.current) {
       dispatch(getAuthTokenAction({
-        email: email.current.value,
+        email: emailRef.current.value,
         password: passwordRef.current.value,
       }));
     }
@@ -35,7 +35,7 @@ export function Login() {
               <div className='login__input-wrapper form__input-wrapper'>
                 <label className='visually-hidden'>E-mail</label>
                 <input className='login__input form__input' type='email' name='email' placeholder='Email' required
-                  ref={email}
+                  ref={emailRef}
                 />
               </div>
               <div className='login__input-wrapper form__input-wrapper'>

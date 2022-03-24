@@ -1,6 +1,6 @@
 import { store } from '../store';
 import { AuthorizationStatus, City, SortType } from '../const';
-import { PlaceInfo } from './client';
+import { PlaceInfo, Review } from './client';
 
 export type State = ReturnType<typeof store.getState>;
 
@@ -10,6 +10,7 @@ export interface GlobalState {
   city: City;
   placeInfoList: PlaceInfo[];
   currentPlaceInfoList: PlaceInfo[];
+  placeReview: Review[];
   sortType: SortType;
   isDataLoaded: boolean;
   authorizationStatus: AuthorizationStatus;

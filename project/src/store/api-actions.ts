@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { api, store } from './index';
-import { setAuthStatusAction, setErrorAction, setPlaceListInfoAction } from './actions';
-import { PlaceInfo } from '../types/client';
+import { setAuthStatusAction, setErrorAction, setPlaceListInfoAction, setPlaceReviewAction } from './actions';
+import { PlaceInfo, Review } from '../types/client';
 import { APIRoute, AuthorizationStatus, StoreApiAction, TIMEOUT_SHOW_ERROR } from '../const';
 import { deleteToken, setToken } from '../api/token';
 import { AuthData, UserApi } from '../types/api';
@@ -13,6 +13,18 @@ export const fetchPlacesInfoListAction = createAsyncThunk(
     try {
       const { data } = await api.get<PlaceInfo[]>(APIRoute.Hotels);
       store.dispatch(setPlaceListInfoAction(data));
+    } catch (e) {
+      handleError(e);
+    }
+  },
+);
+
+export const fetchPlaceReviewAction = createAsyncThunk(
+  StoreApiAction.FetchPlaceReview,
+  async (placeId: string) => {
+    try {
+      const { data } = await api.get<Review[]>(`${APIRoute.Comments}/${placeId}`);
+      store.dispatch(setPlaceReviewAction(data));
     } catch (e) {
       handleError(e);
     }

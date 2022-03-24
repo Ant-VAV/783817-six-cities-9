@@ -6,7 +6,8 @@ import {
   getCurrentPlaceListInfoAction,
   setAuthStatusAction,
   setErrorAction,
-  setPlaceListInfoAction
+  setPlaceListInfoAction,
+  setPlaceReviewAction
 } from './actions';
 import { GlobalState } from '../types/state';
 import { getFilteredPlaceListInfo } from '../helpers';
@@ -15,6 +16,7 @@ const initialState: GlobalState = {
   city: City.Paris,
   placeInfoList: [],
   currentPlaceInfoList: [],
+  placeReview: [],
   sortType: SortType.Popular,
   isDataLoaded: false,
   authorizationStatus: AuthorizationStatus.Unknown,
@@ -35,6 +37,9 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(setPlaceListInfoAction, (state, action) => {
       state.placeInfoList = action.payload;
       state.isDataLoaded = true;
+    })
+    .addCase(setPlaceReviewAction, (state, action) => {
+      state.placeReview = action.payload;
     })
     .addCase(setErrorAction, (state, action) => {
       state.error = action.payload;

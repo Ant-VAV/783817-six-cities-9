@@ -8,8 +8,8 @@ import { Login } from '../../pages/login/login';
 import { PrivateRoute } from '../private-route/private-route';
 import { getPlaceListInfo } from '../../mocks/place-list-info';
 import { useAppSelector } from '../../hooks/state';
-import { TailSpin } from 'react-loader-spinner';
 import { isUnknownAuthStatus } from '../../helpers';
+import { Loader } from '../loader/loader';
 
 function App(): JSX.Element {
   const isDataLoaded = useAppSelector((state) => state.isDataLoaded);
@@ -17,7 +17,7 @@ function App(): JSX.Element {
 
   if (isUnknownAuthStatus(authorizationStatus) || !isDataLoaded) {
     return (
-      <TailSpin ariaLabel='loading-indicator'/>
+      <Loader/>
     );
   }
 
@@ -35,6 +35,7 @@ function App(): JSX.Element {
       )}
       />
       <Route path={Page.LogIn} element={<Login/>}/>
+      <Route path={Page.NotFound} element={<NotFound/>}/>
       <Route path={'*'} element={<NotFound/>}/>
     </Routes>);
 }
