@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { Header } from '../../components/layout/header/header';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Gallery } from '../../components/place-page/gallery/gallery';
 import { Rating } from '../../components/rating/rating';
 import { Features } from '../../components/place-page/features/features.';
@@ -17,7 +17,6 @@ import { Loader } from '../../components/loader/loader';
 
 export function PlacePage() {
   const { id } = useParams();
-  const [activePlaceCardId, setActivePlaceCardId] = useState<number>(-1);
   const [placeInfo, setPlaceInfo] = useState<PlaceInfo>();
   const [nearPlaces, setNearPlaces] = useState<PlaceInfo[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>();
@@ -43,6 +42,16 @@ export function PlacePage() {
       fetchData(id);
     }
   }, [id, fetchData]);
+
+  const mapPoints = useMemo(() => {
+    if (placeInfo) {
+      return nearPlaces.map((nearPlace) => ({ ...nearPlace.location, placeId: nearPlace.id })).concat({
+        ...placeInfo.location,
+        placeId: placeInfo.id,
+      });
+    }
+    return [];
+  }, [placeInfo, nearPlaces]);
 
   return (
     <div className='page page--gray page--main'>
@@ -91,12 +100,12 @@ export function PlacePage() {
                   </div>
                 </div>
                 <Map anchorPoint={placeInfo.location}
-                  points={nearPlaces.map((nearPlace) => ({ ...nearPlace.location, placeId: nearPlace.id }))}
-                  activePlaceId={activePlaceCardId}
+                  points={mapPoints}
+                  activePlaceId={placeInfo.id}
                 />
               </section>
               {nearPlaces.length > 0 && (
-                <NearPlaces nearPlaces={nearPlaces} onSetActivePlaceId={setActivePlaceCardId}/>)}
+                <NearPlaces nearPlaces={nearPlaces}/>)}
             </>
           ))}
       </main>

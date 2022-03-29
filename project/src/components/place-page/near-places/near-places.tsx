@@ -3,11 +3,10 @@ import { PlaceCard } from '../../place-card/place-card';
 
 interface NearPlacesProps {
   nearPlaces: PlaceInfo[];
-  onSetActivePlaceId: (id: number) => void;
 }
 
 export function NearPlaces(props: NearPlacesProps) {
-  const { nearPlaces, onSetActivePlaceId } = props;
+  const { nearPlaces } = props;
 
   return (
     <div className='container'>
@@ -16,7 +15,7 @@ export function NearPlaces(props: NearPlacesProps) {
           <h2 className='near-places__title'>Other places in the neighbourhood</h2>
           <div className='near-places__list places__list'>
             {nearPlaces.map((place) => (
-              <PlaceCard isNeraPlaces placeInfo={place} onSetActivePlaceId={onSetActivePlaceId} key={place.id}/>
+              <PlaceCard isNeraPlaces placeInfo={place} key={place.id}/>
             ))}
           </div>
         </section>

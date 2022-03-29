@@ -7,7 +7,7 @@ import { PlacePrice } from './place-price';
 interface PlaceCardProps {
   placeInfo: PlaceInfo;
   isNeraPlaces?: boolean;
-  onSetActivePlaceId: (id: number) => void;
+  onSetActivePlaceId?: (id: number) => void;
 }
 
 export function PlaceCard(props: PlaceCardProps) {
@@ -16,11 +16,15 @@ export function PlaceCard(props: PlaceCardProps) {
   const classStyle = isNeraPlaces ? 'near-places' : 'cities';
 
   const handleMouseOver = () => {
-    onSetActivePlaceId(placeInfo.id);
+    if (onSetActivePlaceId) {
+      onSetActivePlaceId(placeInfo.id);
+    }
   };
 
   const handleMouseLeave = () => {
-    onSetActivePlaceId(-1);
+    if (onSetActivePlaceId) {
+      onSetActivePlaceId(-1);
+    }
   };
 
   return (
