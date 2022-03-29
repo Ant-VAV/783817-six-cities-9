@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/state';
 import React from 'react';
 import { logoutAction } from '../../../store/api-actions';
 import { isAuthorized } from '../../../helpers';
+import { getAuthorizationStatus } from '../../../store/selectors/selectors';
 
 interface HeaderProps {
   isMainPage?: boolean;
@@ -12,7 +13,7 @@ interface HeaderProps {
 
 export function Header(props: HeaderProps) {
   const { isMainPage = false, isLoginPage = false } = props;
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
   const isLoggedIn = isAuthorized(authorizationStatus);
 

@@ -4,6 +4,7 @@ import { SorterOption } from './sorter-option';
 import { URLSearchParamsInit } from 'react-router-dom';
 import { getSortTypeText } from './sorter-helpers';
 import { useAppSelector } from '../../hooks/state';
+import { getSortType } from '../../store/selectors/selectors';
 
 interface SorterProps {
   onSetSortType: (nextInit: URLSearchParamsInit) => void;
@@ -12,7 +13,7 @@ interface SorterProps {
 export function Sorter(props: SorterProps) {
   const { onSetSortType } = props;
   const [isOpened, setIsOpened] = useState<boolean>();
-  const activeSortType = useAppSelector((state) => state.sortType);
+  const activeSortType = useAppSelector(getSortType);
 
   const handlePopupClick = () => setIsOpened((prevState) => !prevState);
 

@@ -3,11 +3,12 @@ import { Places } from '../../components/places/places';
 import { Header } from '../../components/layout/header/header';
 import { useState } from 'react';
 import { useAppSelector } from '../../hooks/state';
+import { getActiveCity, getAllPlaces } from '../../store/selectors/selectors';
 
 function Main() {
   const [isNoPlaces, setIsNoPlaces] = useState<boolean>(false);
-  const activeCity = useAppSelector((state) => state.city);
-  const allPlaces = useAppSelector((state) => state.placeInfoList);
+  const activeCity = useAppSelector(getActiveCity);
+  const allPlaces = useAppSelector(getAllPlaces);
 
   return (
     <div className='page page--gray page--main'>

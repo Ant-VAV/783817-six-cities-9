@@ -2,8 +2,8 @@ import { CityListItem } from './city-list-item';
 import { City } from '../../const';
 import { useAppDispatch } from '../../hooks/state';
 import { useEffect } from 'react';
-import { changeCityAction } from '../../store/actions';
 import { useParams } from 'react-router-dom';
+import { changeCityAction } from '../../store/filter-params/filter-params';
 
 interface CityListProps {
   activeCity: City;

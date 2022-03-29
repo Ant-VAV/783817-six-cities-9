@@ -2,8 +2,8 @@ import React, { useRef, useState } from 'react';
 import { api, store } from '../../../store';
 import { Review } from '../../../types/client';
 import { APIRoute } from '../../../const';
-import { setPlaceReviewAction } from '../../../store/actions';
 import { handleError, handleErrorMessage } from '../../../api/handle-error';
+import { setPlaceReviewAction } from '../../../store/places-data/places-data';
 
 interface ReviewFormProps {
   placeId: string;

@@ -6,12 +6,21 @@ export type State = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;
 
-export interface GlobalState {
-  city: City;
+export interface UserProcess {
+  authorizationStatus: AuthorizationStatus;
+}
+
+export interface PlacesData {
   placeInfoList: PlaceInfo[];
   placeReview: Review[];
-  sortType: SortType;
   isDataLoaded: boolean;
-  authorizationStatus: AuthorizationStatus;
+}
+
+export interface FilterParams {
+  city: City;
+  sortType: SortType;
+}
+
+export interface OtherActions {
   error: string;
 }

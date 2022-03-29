@@ -8,7 +8,8 @@ import { useSearchParams } from 'react-router-dom';
 import { getFilteredPlaceListInfo } from '../../helpers';
 import { useAppDispatch, useAppSelector } from '../../hooks/state';
 import { PlacesEmpty } from './places-empty';
-import { changeSortType } from '../../store/actions';
+import { getSortType } from '../../store/selectors/selectors';
+import { changeSortType } from '../../store/filter-params/filter-params';
 
 interface PlacesProps {
   allPlaces: PlaceInfo[];
@@ -22,7 +23,7 @@ export function Places(props: PlacesProps) {
   const [placeInfoList, setPlaceInfoList] = useState<PlaceInfo[]>([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useAppDispatch();
-  const sortType = useAppSelector((state) => state.sortType);
+  const sortType = useAppSelector(getSortType);
 
   useEffect(() => {
     const currentPlaces = getFilteredPlaceListInfo(allPlaces, activeCity, sortType);
