@@ -28,7 +28,6 @@ export const URL_MARKER_CURRENT = 'img/pin-active.svg';
 
 export enum StoreAction {
   ChangeCity = 'ChangeCity',
-  GetCurrentPlaceInfo = 'GetCurrentPlaceInfo',
   ChangeSortType = 'ChangeSortType',
   SetPlaceInfoList = 'SetPlaceInfoList',
   SetPlaceReview = 'SetPlaceReview',

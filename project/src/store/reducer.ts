@@ -3,19 +3,16 @@ import { createReducer } from '@reduxjs/toolkit';
 import {
   changeCityAction,
   changeSortType,
-  getCurrentPlaceListInfoAction,
   setAuthStatusAction,
   setErrorAction,
   setPlaceListInfoAction,
   setPlaceReviewAction
 } from './actions';
 import { GlobalState } from '../types/state';
-import { getFilteredPlaceListInfo } from '../helpers';
 
 const initialState: GlobalState = {
   city: City.Paris,
   placeInfoList: [],
-  currentPlaceInfoList: [],
   placeReview: [],
   sortType: SortType.Popular,
   isDataLoaded: false,
@@ -27,9 +24,6 @@ export const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(changeCityAction, (state, action) => {
       state.city = action.payload || initialState.city;
-    })
-    .addCase(getCurrentPlaceListInfoAction, (state, action) => {
-      state.currentPlaceInfoList = getFilteredPlaceListInfo(state.placeInfoList, state.city, state.sortType);
     })
     .addCase(changeSortType, (state, action) => {
       state.sortType = action.payload || initialState.sortType;

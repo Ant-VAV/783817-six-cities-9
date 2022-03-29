@@ -9,7 +9,6 @@ export type AppDispatch = typeof store.dispatch;
 export interface GlobalState {
   city: City;
   placeInfoList: PlaceInfo[];
-  currentPlaceInfoList: PlaceInfo[];
   placeReview: Review[];
   sortType: SortType;
   isDataLoaded: boolean;
