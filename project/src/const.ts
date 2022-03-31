@@ -27,13 +27,6 @@ export const URL_MARKER_DEFAULT = 'img/pin.svg';
 export const URL_MARKER_CURRENT = 'img/pin-active.svg';
 
 export enum StoreAction {
-  ChangeCity = 'ChangeCity',
-  GetCurrentPlaceInfo = 'GetCurrentPlaceInfo',
-  ChangeSortType = 'ChangeSortType',
-  SetPlaceInfoList = 'SetPlaceInfoList',
-  SetPlaceReview = 'SetPlaceReview',
-  SetAuthStatus = 'SetAuthStatus',
-  SetErrorAction = 'SetErrorAction',
   RedirectToPage = 'RedirectToPage',
 }
 
@@ -70,4 +63,11 @@ export enum HttpCode {
   BadRequest = 400,
   Unauthorized = 401,
   NotFound = 404,
+}
+
+export enum StoreSpace {
+  User = 'User',
+  PlacesInfo = 'PlacesInfo',
+  FilterParams = 'FilterParams',
+  OtherActions = 'OtherActions',
 }

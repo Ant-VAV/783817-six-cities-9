@@ -4,6 +4,7 @@ import { ReviewForm } from '../review-form/review-form';
 import { useAppDispatch, useAppSelector } from '../../../hooks/state';
 import { AuthorizationStatus } from '../../../const';
 import { fetchPlaceReviewAction } from '../../../store/api-actions';
+import { getAuthorizationStatus, getReviews } from '../../../store/selectors/selectors';
 
 interface ReviewsProps {
   placeId: number;
@@ -11,9 +12,9 @@ interface ReviewsProps {
 
 export function ReviewsBlock(props: ReviewsProps) {
   const { placeId } = props;
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
-  const reviews = useAppSelector((state) => state.placeReview);
+  const reviews = useAppSelector(getReviews);
   const isLoggedIn = authorizationStatus === AuthorizationStatus.Authorized;
 
   useEffect(() => {

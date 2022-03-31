@@ -1,7 +1,8 @@
 import { useAppSelector } from '../../hooks/state';
+import { getError } from '../../store/selectors/selectors';
 
 function ErrorMessage() {
-  const {error} = useAppSelector((state) => state);
+  const error = useAppSelector(getError);
 
   if (error) {
     return (

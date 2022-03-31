@@ -1,11 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { api, store } from './index';
-import { setAuthStatusAction, setErrorAction, setPlaceListInfoAction, setPlaceReviewAction } from './actions';
 import { PlaceInfo, Review } from '../types/client';
 import { APIRoute, AuthorizationStatus, StoreApiAction, TIMEOUT_SHOW_ERROR } from '../const';
 import { deleteToken, setToken } from '../api/token';
 import { AuthData, UserApi } from '../types/api';
 import { handleError } from '../api/handle-error';
+import { setAuthStatusAction } from './user-process/user-process';
+import { setPlaceListInfoAction, setPlaceReviewAction } from './places-data/places-data';
+import { setErrorAction } from './other-actions/other-actions';
 
 export const fetchPlacesInfoListAction = createAsyncThunk(
   StoreApiAction.FetchPlacesInfoList,

@@ -2,7 +2,8 @@ import axios from 'axios';
 import { HttpCode, Page } from '../const';
 import { store } from '../store';
 import { clearErrorAction } from '../store/api-actions';
-import { redirectToPageAction, setErrorAction } from '../store/actions';
+import { redirectToPageAction } from '../store/actions';
+import { setErrorAction } from '../store/other-actions/other-actions';
 
 export const handleErrorMessage = (message: string) => {
   store.dispatch(setErrorAction(message));

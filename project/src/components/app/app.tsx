@@ -10,10 +10,11 @@ import { getPlaceListInfo } from '../../mocks/place-list-info';
 import { useAppSelector } from '../../hooks/state';
 import { isUnknownAuthStatus } from '../../helpers';
 import { Loader } from '../loader/loader';
+import { getAuthorizationStatus, getIsDataLoaded } from '../../store/selectors/selectors';
 
 function App(): JSX.Element {
-  const isDataLoaded = useAppSelector((state) => state.isDataLoaded);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isDataLoaded = useAppSelector(getIsDataLoaded);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   if (isUnknownAuthStatus(authorizationStatus) || !isDataLoaded) {
     return (
