@@ -77,3 +77,9 @@ export enum FavoritePlaceAction {
   RemoveFromFavorite = 0,
   AddToFavorite = 1,
 }
+
+export enum PlaceCardPosition {
+  NearPlaces='near-places',
+  Favorites = 'favorites',
+  Cities = 'cities'
+}

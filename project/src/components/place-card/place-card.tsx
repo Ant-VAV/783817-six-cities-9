@@ -1,21 +1,44 @@
 import { Link } from 'react-router-dom';
 import { PlaceInfo } from '../../types/client';
-import { capitaliseFirstLetter, getPlaceHref } from '../../helpers';
+import { capitaliseFirstLetter, getPlaceHref, NeverError } from '../../helpers';
 import { Rating } from '../rating/rating';
 import { PlacePrice } from './place-price';
 import { PlaceFavoriteButton } from './place-favorite-button';
+import { PlaceCardPosition } from '../../const';
 
 interface PlaceCardProps {
   placeInfo: PlaceInfo;
-  isNearPlaces?: boolean;
   onSetActivePlaceId?: (id: number) => void;
+  cardPosition: PlaceCardPosition;
 }
 
 export function PlaceCard(props: PlaceCardProps) {
-  const { placeInfo, onSetActivePlaceId, isNearPlaces = false } = props;
+  const { placeInfo, onSetActivePlaceId, cardPosition } = props;
   const { isPremium, id, previewImage, price, isFavorite, rating, title, type } = placeInfo;
 
-  const classStyle = isNearPlaces ? 'near-places' : 'cities';
+  const getClassStyle = () => {
+    switch (cardPosition) {
+      case PlaceCardPosition.NearPlaces:
+      case PlaceCardPosition.Favorites:
+        return `${cardPosition}__card`;
+      case PlaceCardPosition.Cities:
+        return `${cardPosition}__place-card`;
+      default:
+        throw new NeverError(cardPosition);
+    }
+  };
+
+  const getImagePreviewStyle = () => {
+    switch (cardPosition) {
+      case PlaceCardPosition.Cities:
+      case PlaceCardPosition.NearPlaces:
+        return { width: 260, height: 200 };
+      case PlaceCardPosition.Favorites:
+        return { width: 150, height: 110 };
+      default:
+        throw new NeverError(cardPosition);
+    }
+  };
 
   const handleMouseOver = () => {
     if (onSetActivePlaceId) {
@@ -30,26 +53,28 @@ export function PlaceCard(props: PlaceCardProps) {
   };
 
   return (
-    <article className={`${classStyle}__place-card place-card`} onMouseOver={handleMouseOver}
+    <article className={`${getClassStyle()} place-card`} onMouseOver={handleMouseOver}
       onMouseLeave={handleMouseLeave}
     >
-      {isPremium && (
+      {isPremium && cardPosition !== PlaceCardPosition.Favorites && (
         <div className='place-card__mark'>
           <span>Premium</span>
         </div>
       )}
-      <div className={`${classStyle}__image-wrapper place-card__image-wrapper`}>
+      <div className={`${cardPosition}__image-wrapper place-card__image-wrapper`}>
         <Link to={getPlaceHref(id)}>
           <img
-            className='place-card__image' src={previewImage} width='260' height='200'
+            className='place-card__image' src={previewImage} style={getImagePreviewStyle()}
             alt='Place card img'
           />
         </Link>
       </div>
-      <div className='place-card__info'>
+      <div className={`${cardPosition === PlaceCardPosition.Favorites ? 'favorites__card-info' : ''} place-card__info`}>
         <div className='place-card__price-wrapper'>
           <PlacePrice price={price}/>
-          <PlaceFavoriteButton isFavorite={isFavorite} placeId={id}/>
+          <PlaceFavoriteButton isFavorite={isFavorite} placeId={id}
+            onRefresh={onRefresh}
+          />
         </div>
         <div className='place-card__rating rating'>
           <div className='place-card__stars rating__stars'>
