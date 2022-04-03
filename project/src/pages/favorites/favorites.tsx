@@ -31,35 +31,40 @@ export function Favorites() {
     fetchFavoritesPlaces();
   }, [fetchFavoritesPlaces]);
 
+  const isFavoritesEmpty = favoritesPlaces.length === 0;
+
   return (
     <div className='page'>
       <Header/>
       {isLoading ? (
         <Loader/>
       ) : (
-        favoritesPlaces.length === 0 ? (
-          <FavoritesEmpty/>
-        ) : (
-          <main className='page__main page__main--favorites'>
-            <div className='page__favorites-container container'>
-              <section className='favorites'>
-                <h1 className='favorites__title'>Saved listing</h1>
-                <ul className='favorites__list'>
-                  {allCities.map((city) => (
-                    <FavoritePlaceItem
-                      placeInfoList={favoritesPlaces.filter((place) => place.city.name === city)}
-                      city={city}
-                      key={city}
-                      onRefresh={fetchFavoritesPlaces}
-                    />
-                  ))}
-                </ul>
-              </section>
-            </div>
-          </main>
-        ))
-      }
-      <Footer/>
+        <main className={`page__main page__main--favorites ${isFavoritesEmpty ? 'page__main--favorites-empty' : ''}`}>
+          <div className='page__favorites-container container'>
+            <section className={`favorites ${isFavoritesEmpty ? 'favorites--empty' : ''}`}>
+              {isFavoritesEmpty ? (
+                <FavoritesEmpty/>
+              ) : (
+                <>
+                  <h1 className='favorites__title'>Saved listing</h1>
+                  <ul className='favorites__list'>
+                    {allCities.map((city) => (
+                      <FavoritePlaceItem
+                        placeInfoList={favoritesPlaces.filter((place) => place.city.name === city)}
+                        city={city}
+                        key={city}
+                        onRefresh={fetchFavoritesPlaces}
+                      />
+                    ))}
+                  </ul>
+                </>
+              )}
+            </section>
+          </div>
+        </main>
+      )}
+
+      <Footer/>;
     </div>
   );
 }

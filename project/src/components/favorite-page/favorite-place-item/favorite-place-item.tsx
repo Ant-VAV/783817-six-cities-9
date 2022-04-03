@@ -24,10 +24,12 @@ export function FavoritePlaceItem(props: FavoritePlaceItemProps) {
             </div>
           </div>
           <div className='favorites__places'>
-            {placeInfoList.map((place) => <PlaceCard placeInfo={place} key={place.id}
-              cardPosition={PlaceCardPosition.Favorites}
-              onRefresh={onRefresh}
-            />)}
+            {placeInfoList.map((place) => (
+              <PlaceCard placeInfo={place} key={place.id}
+                cardPosition={PlaceCardPosition.Favorites}
+                onRefresh={onRefresh}
+              />
+            ))}
           </div>
         </li>
       )

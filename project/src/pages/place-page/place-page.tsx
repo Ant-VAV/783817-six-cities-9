@@ -21,13 +21,13 @@ export function PlacePage() {
   const [nearPlaces, setNearPlaces] = useState<PlaceInfo[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>();
 
-  async function getPlaceInfo(id: string) {
-    const placeData = (await api.get<PlaceInfo>(`${APIRoute.Hotels}/${id}`)).data;
+  async function getPlaceInfo(placeDataPlaceId: string) {
+    const placeData = (await api.get<PlaceInfo>(`${APIRoute.Hotels}/${placeDataPlaceId}`)).data;
     setPlaceInfo(placeData);
   }
 
-  async function getNearPlaces(id: string) {
-    const nearPlacesData = (await api.get<PlaceInfo[]>(`${APIRoute.Hotels}/${id}/nearby`)).data;
+  async function getNearPlaces(nearbyPlaceDataId: string) {
+    const nearPlacesData = (await api.get<PlaceInfo[]>(`${APIRoute.Hotels}/${nearbyPlaceDataId}/nearby`)).data;
     setNearPlaces(nearPlacesData);
   }
 
@@ -111,8 +111,8 @@ export function PlacePage() {
                 />
               </section>
               {nearPlaces.length > 0 && (
-                <NearPlaces nearPlaces={nearPlaces} onRefresh={() => getNearPlaces(id!)}
-                />)}
+                <NearPlaces nearPlaces={nearPlaces} onRefresh={() => getNearPlaces(id!)}/>
+              )}
             </>
           ))}
       </main>
