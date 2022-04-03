@@ -1,25 +1,45 @@
 import { Header } from '../../components/layout/header/header';
 import { PlaceInfo } from '../../types/client';
 import { FavoritePlaceItem } from '../../components/favorite-page/favorite-place-item/favorite-place-item';
-import { City } from '../../const';
+import { APIRoute, City } from '../../const';
 import { Footer } from '../../components/layout/footer/footer';
 import { FavoritesEmpty } from '../../components/favorite-page/favorites-empty/favorites-empty';
+import { api } from '../../store';
+import { useCallback, useEffect, useState } from 'react';
+import { handleError } from '../../api/handle-error';
+import { Loader } from '../../components/loader/loader';
 
-interface FavoritesProps {
-  placeInfoList: PlaceInfo[];
-}
+export function Favorites() {
+  const [favoritesPlaces, setFavoritesPlaces] = useState<PlaceInfo[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>();
 
-export function Favorites(props: FavoritesProps) {
-  const { placeInfoList } = props;
-
-  const favoritesPlaces = placeInfoList.filter((place) => place.isFavorite);
   const allCities = Object.keys(City);
+
+  const fetchFavoritesPlaces = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      const { data } = await api.get<PlaceInfo[]>(APIRoute.Favorite);
+      setFavoritesPlaces(data);
+    } catch (e) {
+      handleError(e);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchFavoritesPlaces();
+  }, [fetchFavoritesPlaces]);
 
   return (
     <div className='page'>
       <Header/>
-      {favoritesPlaces.length > 0
-        ? (
+      {isLoading ? (
+        <Loader/>
+      ) : (
+        favoritesPlaces.length === 0 ? (
+          <FavoritesEmpty/>
+        ) : (
           <main className='page__main page__main--favorites'>
             <div className='page__favorites-container container'>
               <section className='favorites'>
@@ -36,9 +56,8 @@ export function Favorites(props: FavoritesProps) {
               </section>
             </div>
           </main>
-        ) : (
-          <FavoritesEmpty/>
-        )}
+        ))
+      }
       <Footer/>
     </div>
   );
