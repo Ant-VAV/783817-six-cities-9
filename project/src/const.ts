@@ -55,6 +55,7 @@ export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
   Comments = '/comments',
+  Favorite = '/favorite',
 }
 
 export const TIMEOUT_SHOW_ERROR = 2000;
@@ -70,4 +71,9 @@ export enum StoreSpace {
   PlacesInfo = 'PlacesInfo',
   FilterParams = 'FilterParams',
   OtherActions = 'OtherActions',
+}
+
+export enum FavoritePlaceAction {
+  RemoveFromFavorite = 0,
+  AddToFavorite = 1,
 }

@@ -3,6 +3,7 @@ import { PlaceInfo } from '../../types/client';
 import { capitaliseFirstLetter, getPlaceHref } from '../../helpers';
 import { Rating } from '../rating/rating';
 import { PlacePrice } from './place-price';
+import { PlaceFavoriteButton } from './place-favorite-button';
 
 interface PlaceCardProps {
   placeInfo: PlaceInfo;
@@ -12,12 +13,13 @@ interface PlaceCardProps {
 
 export function PlaceCard(props: PlaceCardProps) {
   const { placeInfo, onSetActivePlaceId, isNeraPlaces = false } = props;
+  const { isPremium, id, previewImage, price, isFavorite, rating, title, type } = placeInfo;
 
   const classStyle = isNeraPlaces ? 'near-places' : 'cities';
 
   const handleMouseOver = () => {
     if (onSetActivePlaceId) {
-      onSetActivePlaceId(placeInfo.id);
+      onSetActivePlaceId(id);
     }
   };
 
@@ -28,42 +30,36 @@ export function PlaceCard(props: PlaceCardProps) {
   };
 
   return (
-    <article className={`${classStyle}__place-card place-card`} onMouseOver={handleMouseOver} onMouseLeave={handleMouseLeave}>
-      {placeInfo.isPremium && (
+    <article className={`${classStyle}__place-card place-card`} onMouseOver={handleMouseOver}
+      onMouseLeave={handleMouseLeave}
+    >
+      {isPremium && (
         <div className='place-card__mark'>
           <span>Premium</span>
         </div>
       )}
       <div className={`${classStyle}__image-wrapper place-card__image-wrapper`}>
-        <Link to={getPlaceHref(placeInfo.id)}>
+        <Link to={getPlaceHref(id)}>
           <img
-            className='place-card__image' src={placeInfo.previewImage} width='260' height='200'
+            className='place-card__image' src={previewImage} width='260' height='200'
             alt='Place card img'
           />
         </Link>
       </div>
       <div className='place-card__info'>
         <div className='place-card__price-wrapper'>
-          <PlacePrice price={placeInfo.price}/>
-          <button
-            className={`place-card__bookmark-button button ${placeInfo.isFavorite ? 'place-card__bookmark-button--active' : ''}`}
-            type='button'
-          >
-            <svg className='place-card__bookmark-icon' width='18' height='19'>
-              <use xlinkHref='#icon-bookmark'/>
-            </svg>
-            <span className='visually-hidden'>To bookmarks</span>
-          </button>
+          <PlacePrice price={price}/>
+          <PlaceFavoriteButton isFavorite={isFavorite} placeId={id}/>
         </div>
         <div className='place-card__rating rating'>
           <div className='place-card__stars rating__stars'>
-            <Rating rating={placeInfo.rating}/>
+            <Rating rating={rating}/>
           </div>
         </div>
         <h2 className='place-card__name'>
-          <Link to={getPlaceHref(placeInfo.id)}>{placeInfo.title}</Link>
+          <Link to={getPlaceHref(id)}>{title}</Link>
         </h2>
-        <p className='place-card__type'>{capitaliseFirstLetter(placeInfo.type)}</p>
+        <p className='place-card__type'>{capitaliseFirstLetter(type)}</p>
       </div>
     </article>
   );
