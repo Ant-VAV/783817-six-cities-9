@@ -10,10 +10,11 @@ interface PlaceCardProps {
   placeInfo: PlaceInfo;
   onSetActivePlaceId?: (id: number) => void;
   cardPosition: PlaceCardPosition;
+  onRefresh: () => void;
 }
 
 export function PlaceCard(props: PlaceCardProps) {
-  const { placeInfo, onSetActivePlaceId, cardPosition } = props;
+  const { placeInfo, onSetActivePlaceId, cardPosition, onRefresh } = props;
   const { isPremium, id, previewImage, price, isFavorite, rating, title, type } = placeInfo;
 
   const getClassStyle = () => {

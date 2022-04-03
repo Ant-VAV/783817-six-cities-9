@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from '../../hooks/state';
+import { useAppSelector } from '../../hooks/state';
 import { APIRoute, FavoritePlaceAction, Page } from '../../const';
 import { api } from '../../store';
 import { useState } from 'react';
@@ -8,19 +8,18 @@ import { useNavigate } from 'react-router-dom';
 import { handleError } from '../../api/handle-error';
 import { Loader } from '../loader/loader';
 import { PlaceInfo } from '../../types/client';
-import { fetchPlacesInfoListAction } from '../../store/api-actions';
 
 interface PlaceFavoriteButtonProps {
   isFavorite: boolean;
   placeId: number;
+  onRefresh: () => void;
 }
 
 export function PlaceFavoriteButton(props: PlaceFavoriteButtonProps) {
-  const { isFavorite, placeId } = props;
+  const { isFavorite, placeId, onRefresh } = props;
   const [isLoading, setIsLoading] = useState<boolean>();
 
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isLoggedIn = isAuthorized(authorizationStatus);
 
@@ -31,7 +30,7 @@ export function PlaceFavoriteButton(props: PlaceFavoriteButtonProps) {
     try {
       setIsLoading(true);
       await setFavorite(placeId, isFavorite ? FavoritePlaceAction.RemoveFromFavorite : FavoritePlaceAction.AddToFavorite);
-      dispatch(fetchPlacesInfoListAction());
+      await onRefresh();
     } catch (e) {
       handleError(e);
     } finally {

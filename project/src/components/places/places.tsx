@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { PlaceCard } from '../place-card/place-card';
 import { PlaceInfo } from '../../types/client';
 import { Map } from '../map/map';
-import { City, SearchParams } from '../../const';
+import { City, PlaceCardPosition, SearchParams } from '../../const';
 import { Sorter } from '../sorter/sorter';
 import { useSearchParams } from 'react-router-dom';
 import { getFilteredPlaceListInfo } from '../../helpers';
@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/state';
 import { PlacesEmpty } from './places-empty';
 import { getSortType } from '../../store/selectors/selectors';
 import { changeSortType } from '../../store/filter-params/filter-params';
+import { fetchPlacesInfoListAction } from '../../store/api-actions';
 
 interface PlacesProps {
   allPlaces: PlaceInfo[];
@@ -37,6 +38,8 @@ export function Places(props: PlacesProps) {
     dispatch(changeSortType(searchParams.get(SearchParams.Sort)));
   }, [searchParams, dispatch]);
 
+  const handleOnRefreshPlaceCard = () => dispatch(fetchPlacesInfoListAction());
+
   return placeInfoList.length === 0 ? (
     <PlacesEmpty activeCity={activeCity}/>
   ) : (
@@ -47,7 +50,9 @@ export function Places(props: PlacesProps) {
         <Sorter onSetSortType={setSearchParams}/>
         <div className='cities__places-list places__list tabs__content'>
           {placeInfoList.map((place) => (
-            <PlaceCard placeInfo={place} key={place.id} onSetActivePlaceId={setActivePlaceCardId}/>))}
+            <PlaceCard placeInfo={place} key={place.id} onSetActivePlaceId={setActivePlaceCardId}
+              cardPosition={PlaceCardPosition.Cities} onRefresh={handleOnRefreshPlaceCard}
+            />))}
         </div>
       </section>
       <div className='cities__right-section'>

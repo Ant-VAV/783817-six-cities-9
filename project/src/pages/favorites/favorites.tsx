@@ -50,6 +50,7 @@ export function Favorites() {
                       placeInfoList={favoritesPlaces.filter((place) => place.city.name === city)}
                       city={city}
                       key={city}
+                      onRefresh={fetchFavoritesPlaces}
                     />
                   ))}
                 </ul>
