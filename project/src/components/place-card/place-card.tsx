@@ -7,15 +7,15 @@ import { PlaceFavoriteButton } from './place-favorite-button';
 
 interface PlaceCardProps {
   placeInfo: PlaceInfo;
-  isNeraPlaces?: boolean;
+  isNearPlaces?: boolean;
   onSetActivePlaceId?: (id: number) => void;
 }
 
 export function PlaceCard(props: PlaceCardProps) {
-  const { placeInfo, onSetActivePlaceId, isNeraPlaces = false } = props;
+  const { placeInfo, onSetActivePlaceId, isNearPlaces = false } = props;
   const { isPremium, id, previewImage, price, isFavorite, rating, title, type } = placeInfo;
 
-  const classStyle = isNeraPlaces ? 'near-places' : 'cities';
+  const classStyle = isNearPlaces ? 'near-places' : 'cities';
 
   const handleMouseOver = () => {
     if (onSetActivePlaceId) {

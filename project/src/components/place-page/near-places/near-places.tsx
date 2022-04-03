@@ -15,7 +15,7 @@ export function NearPlaces(props: NearPlacesProps) {
           <h2 className='near-places__title'>Other places in the neighbourhood</h2>
           <div className='near-places__list places__list'>
             {nearPlaces.map((place) => (
-              <PlaceCard isNeraPlaces placeInfo={place} key={place.id}/>
+              <PlaceCard isNearPlaces placeInfo={place} key={place.id}/>
             ))}
           </div>
         </section>
