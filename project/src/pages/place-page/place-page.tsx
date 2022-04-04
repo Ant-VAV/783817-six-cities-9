@@ -21,15 +21,21 @@ export function PlacePage() {
   const [nearPlaces, setNearPlaces] = useState<PlaceInfo[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>();
 
+  async function getPlaceInfo(placeDataPlaceId: string) {
+    const placeData = (await api.get<PlaceInfo>(`${APIRoute.Hotels}/${placeDataPlaceId}`)).data;
+    setPlaceInfo(placeData);
+  }
+
+  async function getNearPlaces(nearbyPlaceDataId: string) {
+    const nearPlacesData = (await api.get<PlaceInfo[]>(`${APIRoute.Hotels}/${nearbyPlaceDataId}/nearby`)).data;
+    setNearPlaces(nearPlacesData);
+  }
+
   const fetchData = useCallback(async (placeId: string) => {
     try {
       setIsLoading(true);
-
-      const placeInfoData = (await api.get<PlaceInfo>(`${APIRoute.Hotels}/${placeId}`)).data;
-      const nearPlacesData = (await api.get<PlaceInfo[]>(`${APIRoute.Hotels}/${placeId}/nearby`)).data;
-
-      setPlaceInfo(placeInfoData);
-      setNearPlaces(nearPlacesData);
+      await getPlaceInfo(placeId);
+      await getNearPlaces(placeId);
     } catch (e) {
       handleError(e);
     } finally {
@@ -105,7 +111,8 @@ export function PlacePage() {
                 />
               </section>
               {nearPlaces.length > 0 && (
-                <NearPlaces nearPlaces={nearPlaces}/>)}
+                <NearPlaces nearPlaces={nearPlaces} onRefresh={() => getNearPlaces(id!)}/>
+              )}
             </>
           ))}
       </main>
