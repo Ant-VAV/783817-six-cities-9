@@ -2,8 +2,8 @@ import { Header } from '../../components/layout/header/header';
 import React, { useRef } from 'react';
 import { useAppDispatch } from '../../hooks/state';
 import { getAuthTokenAction } from '../../store/api-actions';
-import { useNavigate } from 'react-router-dom';
-import { Page } from '../../const';
+import { Link, useNavigate } from 'react-router-dom';
+import { City, Page } from '../../const';
 
 export function Login() {
   const emailRef = useRef<HTMLInputElement | null>(null);
@@ -51,9 +51,9 @@ export function Login() {
           </section>
           <section className='locations locations--login locations--current'>
             <div className='locations__item'>
-              <a className='locations__item-link' href='/#'>
+              <Link className='locations__item-link' to={`/${City.Amsterdam}`}>
                 <span>Amsterdam</span>
-              </a>
+              </Link>
             </div>
           </section>
         </div>
