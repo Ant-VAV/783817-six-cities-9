@@ -5,6 +5,7 @@ import { Rating } from '../rating/rating';
 import { PlacePrice } from './place-price';
 import { PlaceFavoriteButton } from './place-favorite-button';
 import { PlaceCardPosition } from '../../const';
+import { NeverError } from '../../never-error';
 
 interface PlaceCardProps {
   placeInfo: PlaceInfo;

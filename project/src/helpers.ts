@@ -31,8 +31,5 @@ export const isUnknownAuthStatus = (authorizationStatus: AuthorizationStatus): b
 export const isAuthorized = (authorizationStatus: AuthorizationStatus): boolean =>
   authorizationStatus === AuthorizationStatus.Authorized;
 
-export class NeverError extends Error {
-  constructor(value: never) {
-    super(`Unreachable value: ${value}`);
   }
 }
