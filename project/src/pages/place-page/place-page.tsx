@@ -14,6 +14,7 @@ import { PlaceInfo } from '../../types/client';
 import { APIRoute } from '../../const';
 import { handleError } from '../../api/handle-error';
 import { Loader } from '../../components/loader/loader';
+import { getPlaceTypeName } from '../../helpers';
 
 export function PlacePage() {
   const { id } = useParams();
@@ -95,7 +96,7 @@ export function PlacePage() {
                       </div>
                       <span className='property__rating-value rating__value'>{placeInfo.rating}</span>
                     </div>
-                    <Features type={placeInfo.type} bedrooms={placeInfo.bedrooms} adults={placeInfo.maxAdults}/>
+                    <Features type={getPlaceTypeName(placeInfo.type)} bedrooms={placeInfo.bedrooms} adults={placeInfo.maxAdults}/>
                     <div className='property__price'>
                       <b className='property__price-value'>&euro;{placeInfo.price}</b>
                       <span className='property__price-text'>&nbsp;night</span>
