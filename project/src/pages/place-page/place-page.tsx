@@ -3,7 +3,7 @@ import { Header } from '../../components/layout/header/header';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Gallery } from '../../components/place-page/gallery/gallery';
 import { Rating } from '../../components/rating/rating';
-import { Features } from '../../components/place-page/features/features.';
+import { Features } from '../../components/place-page/features/features';
 import { Inside } from '../../components/place-page/inside/inside';
 import { NearPlaces } from '../../components/place-page/near-places/near-places';
 import { PlaceHostBlock } from '../../components/place-page/place-host-block/place-host-block';
