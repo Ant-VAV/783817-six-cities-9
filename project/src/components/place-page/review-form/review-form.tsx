@@ -5,6 +5,9 @@ import { APIRoute } from '../../../const';
 import { handleError, handleErrorMessage } from '../../../api/handle-error';
 import { setPlaceReviewAction } from '../../../store/places-data/places-data';
 
+const MIN_REVIEW_MESSAGE = 50;
+const MAX_REVIEW_MESSAGE = 300;
+
 interface ReviewFormProps {
   placeId: string;
 }
@@ -17,7 +20,7 @@ export function ReviewForm(props: ReviewFormProps) {
   const commentRef = useRef<HTMLTextAreaElement | null>(null);
 
   const setSubmitButtonActive = () => {
-    if (rateRef.current?.querySelector('.form__rating-input:checked') && commentRef.current?.value) {
+    if (rateRef.current?.querySelector('.form__rating-input:checked') && commentRef.current?.value && commentRef.current?.value.length >= MIN_REVIEW_MESSAGE) {
       setIsActiveElement(true);
       return;
     }
@@ -27,11 +30,11 @@ export function ReviewForm(props: ReviewFormProps) {
   const onFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (commentRef.current && rateRef.current) {
-      if (commentRef.current.value.length < 50) {
+      if (commentRef.current.value.length < MIN_REVIEW_MESSAGE) {
         handleErrorMessage('Слишком мало буков');
         return;
       }
-      if (commentRef.current.value.length > 300) {
+      if (commentRef.current.value.length > MAX_REVIEW_MESSAGE) {
         handleErrorMessage('Слишком много буков');
         return;
       }

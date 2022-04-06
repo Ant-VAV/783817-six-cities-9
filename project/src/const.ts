@@ -89,5 +89,6 @@ export enum PlaceInfoType {
   Room = 'room',
   House = 'house',
   Hotel = 'hotel'
-
 }
+
+export const CHECK_NUMBER_OF_ENTITIES = 0;

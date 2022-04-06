@@ -11,7 +11,7 @@ import { ReviewsBlock } from '../../components/place-page/reviews-block/reviews-
 import { Map } from '../../components/map/map';
 import { api } from '../../store';
 import { PlaceInfo } from '../../types/client';
-import { APIRoute } from '../../const';
+import { APIRoute, CHECK_NUMBER_OF_ENTITIES } from '../../const';
 import { handleError } from '../../api/handle-error';
 import { Loader } from '../../components/loader/loader';
 import { getPlaceTypeName } from '../../helpers';
@@ -111,7 +111,7 @@ export function PlacePage() {
                   activePlaceId={placeInfo.id}
                 />
               </section>
-              {nearPlaces.length > 0 && (
+              {nearPlaces.length > CHECK_NUMBER_OF_ENTITIES && (
                 <NearPlaces nearPlaces={nearPlaces} onRefresh={() => getNearPlaces(id!)}/>
               )}
             </>

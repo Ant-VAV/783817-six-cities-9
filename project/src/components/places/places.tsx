@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { PlaceCard } from '../place-card/place-card';
 import { PlaceInfo } from '../../types/client';
 import { Map } from '../map/map';
-import { City, PlaceCardPosition, SearchParams } from '../../const';
+import { CHECK_NUMBER_OF_ENTITIES, City, PlaceCardPosition, SearchParams } from '../../const';
 import { Sorter } from '../sorter/sorter';
 import { useSearchParams } from 'react-router-dom';
 import { getFilteredPlaceListInfo } from '../../helpers';
@@ -28,7 +28,7 @@ export function Places(props: PlacesProps) {
 
   useEffect(() => {
     const currentPlaces = getFilteredPlaceListInfo(allPlaces, activeCity, sortType);
-    if (currentPlaces.length === 0) {
+    if (currentPlaces.length === CHECK_NUMBER_OF_ENTITIES) {
       onSetIsNoPlaces(true);
     }
     setPlaceInfoList(currentPlaces);
@@ -40,7 +40,7 @@ export function Places(props: PlacesProps) {
 
   const handleOnRefreshPlaceCard = () => dispatch(fetchPlacesInfoListAction());
 
-  return placeInfoList.length === 0 ? (
+  return placeInfoList.length === CHECK_NUMBER_OF_ENTITIES ? (
     <PlacesEmpty activeCity={activeCity}/>
   ) : (
     <div className='cities__places-container container'>
