@@ -1,7 +1,7 @@
 import { Header } from '../../components/layout/header/header';
 import { PlaceInfo } from '../../types/client';
 import { FavoritePlaceItem } from '../../components/favorite-page/favorite-place-item/favorite-place-item';
-import { APIRoute, City } from '../../const';
+import { APIRoute, CHECK_NUMBER_OF_ENTITIES, City } from '../../const';
 import { Footer } from '../../components/layout/footer/footer';
 import { FavoritesEmpty } from '../../components/favorite-page/favorites-empty/favorites-empty';
 import { api } from '../../store';
@@ -31,7 +31,7 @@ export function Favorites() {
     fetchFavoritesPlaces();
   }, [fetchFavoritesPlaces]);
 
-  const isFavoritesEmpty = favoritesPlaces.length === 0;
+  const isFavoritesEmpty = favoritesPlaces.length === CHECK_NUMBER_OF_ENTITIES;
 
   return (
     <div className='page'>
