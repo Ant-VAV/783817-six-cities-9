@@ -1,3 +1,5 @@
+import { PlaceInfoType } from '../const';
+
 export interface PlaceInfo {
   bedrooms: number;
   city: City;
@@ -14,7 +16,7 @@ export interface PlaceInfo {
   price: number;
   rating: number;
   title: string;
-  type: string;
+  type: PlaceInfoType;
 }
 
 export interface User {

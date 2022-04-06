@@ -1,15 +1,17 @@
 import { Review } from '../../../types/client';
 import { Rating } from '../../rating/rating';
+import { getDateForAttribute } from '../../../date-helpers';
 
 interface ReviewItemProps {
   review: Review
 }
 
+const dateOptions: Intl.DateTimeFormatOptions = { month: 'long', year: 'numeric' };
+
 export function ReviewItem(props: ReviewItemProps) {
   const { review } = props;
   const { user } = review;
   const date = new Date(review.date);
-  const options: Intl.DateTimeFormatOptions = { month: 'long', year: 'numeric' };
 
   return (
     <li className='reviews__item'>
@@ -32,7 +34,9 @@ export function ReviewItem(props: ReviewItemProps) {
         <p className='reviews__text'>
           {review.comment}
         </p>
-        <time className='reviews__time' dateTime='2019-04-24'>{date.toLocaleDateString('en-US', options)}</time>
+        <time className='reviews__time' dateTime={getDateForAttribute(date)}>
+          {date.toLocaleDateString('en-US', dateOptions)}
+        </time>
       </div>
     </li>
   );

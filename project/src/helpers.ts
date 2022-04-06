@@ -1,5 +1,6 @@
 import { PlaceInfo } from './types/client';
-import { AuthorizationStatus, City, SortType } from './const';
+import { AuthorizationStatus, City, PlaceInfoType, SortType } from './const';
+import { NeverError } from './never-error';
 
 export const capitaliseFirstLetter = (value: string) => value.charAt(0).toUpperCase() + value.slice(1);
 
@@ -31,8 +32,17 @@ export const isUnknownAuthStatus = (authorizationStatus: AuthorizationStatus): b
 export const isAuthorized = (authorizationStatus: AuthorizationStatus): boolean =>
   authorizationStatus === AuthorizationStatus.Authorized;
 
-export class NeverError extends Error {
-  constructor(value: never) {
-    super(`Unreachable value: ${value}`);
+export const getPlaceTypeName = (type: PlaceInfoType): string => {
+  switch (type) {
+    case PlaceInfoType.Apartment:
+      return 'Apartment';
+    case PlaceInfoType.Hotel:
+      return 'Hotel';
+    case PlaceInfoType.House:
+      return 'House';
+    case PlaceInfoType.Room:
+      return 'Private Room';
+    default:
+      throw new NeverError(type);
   }
-}
+};

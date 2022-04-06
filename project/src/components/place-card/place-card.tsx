@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
 import { PlaceInfo } from '../../types/client';
-import { capitaliseFirstLetter, getPlaceHref, NeverError } from '../../helpers';
+import { getPlaceHref, getPlaceTypeName } from '../../helpers';
 import { Rating } from '../rating/rating';
 import { PlacePrice } from './place-price';
 import { PlaceFavoriteButton } from './place-favorite-button';
 import { PlaceCardPosition } from '../../const';
+import { NeverError } from '../../never-error';
 
 interface PlaceCardProps {
   placeInfo: PlaceInfo;
@@ -85,7 +86,7 @@ export function PlaceCard(props: PlaceCardProps) {
         <h2 className='place-card__name'>
           <Link to={getPlaceHref(id)}>{title}</Link>
         </h2>
-        <p className='place-card__type'>{capitaliseFirstLetter(type)}</p>
+        <p className='place-card__type'>{getPlaceTypeName(type)}</p>
       </div>
     </article>
   );

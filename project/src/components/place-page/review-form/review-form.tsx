@@ -48,6 +48,7 @@ export function ReviewForm(props: ReviewFormProps) {
 
         commentRef.current.value = '';
         ratingInput.checked = false;
+        setIsActiveElement(false);
       } catch (e) {
         handleError(e);
       } finally {

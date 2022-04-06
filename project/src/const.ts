@@ -79,7 +79,15 @@ export enum FavoritePlaceAction {
 }
 
 export enum PlaceCardPosition {
-  NearPlaces='near-places',
+  NearPlaces = 'near-places',
   Favorites = 'favorites',
   Cities = 'cities'
+}
+
+export enum PlaceInfoType {
+  Apartment = 'apartment',
+  Room = 'room',
+  House = 'house',
+  Hotel = 'hotel'
+
 }
